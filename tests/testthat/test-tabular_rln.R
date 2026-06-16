@@ -70,7 +70,7 @@ test_that("check_args.tabular_rln() rejects negative step_rate", {
 
 test_that("required_pkgs.tabular_rln() returns expected packages", {
   spec <- tabular_rln()
-  expect_equal(required_pkgs(spec), c("brulee", "tdl"))
+  expect_equal(required_pkgs(spec), c("brulee", "tabular"))
 })
 
 test_that("tabular_rln() is registered with parsnip", {

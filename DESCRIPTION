@@ -1,4 +1,4 @@
-Package: tdl
+Package: tabular
 Title: Tidy Interfaces For Tabular Deep Learning
 Version: 0.0.0.9000
 Authors@R: c(

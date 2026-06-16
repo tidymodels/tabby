@@ -13,18 +13,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tdl
+# tabular
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/tdl)](https://CRAN.R-project.org/package=tdl)
+[![CRAN status](https://www.r-pkg.org/badges/version/tabular)](https://CRAN.R-project.org/package=tabular)
 <!-- badges: end -->
 
-The goal of tdl is to ...
+The goal of tabular is to ...
 
 ## Installation
 
-You can install the development version of tdl like so:
+You can install the development version of tabular like so:
 
 ``` r
 # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
@@ -35,7 +35,7 @@ You can install the development version of tdl like so:
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(tdl)
+library(tabular)
 ## basic example code
 ```
 
@@ -57,5 +57,5 @@ In that case, don't forget to commit and push the resulting figure files, so the
 
 ## Code of Conduct
   
-Please note that the tdl project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the tabular project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
   

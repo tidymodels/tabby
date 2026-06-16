@@ -80,7 +80,7 @@ tabular_resnet <-
 
 #' Updating a model specification
 #' @method update tabular_resnet
-#' @rdname tdl_update
+#' @rdname tabular_update
 #' @inheritParams tabular_resnet
 #' @param object A [model specification][model_spec].
 #' @param parameters A 1-row tibble or named list with _main_
@@ -167,7 +167,7 @@ check_args.tabular_resnet <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_resnet <- function(x, infra = TRUE, ...) {
-  c("brulee", "tdl")
+  c("brulee", "tabular")
 }
 
 ## -----------------------------------------------------------------------------
@@ -269,7 +269,7 @@ make_tabular_resnet <- function() {
     eng = "brulee",
     parsnip = "bottleneck_units",
     original = "bottleneck_units",
-    func = list(pkg = "tdl", fun = "bottleneck_units"),
+    func = list(pkg = "tabular", fun = "bottleneck_units"),
     has_submodel = FALSE
   )
 

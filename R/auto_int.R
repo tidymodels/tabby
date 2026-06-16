@@ -109,7 +109,7 @@ tabular_auto_int <-
 # ------------------------------------------------------------------------------
 
 #' @method update tabular_auto_int
-#' @rdname tdl_update
+#' @rdname tabular_update
 #' @inheritParams tabular_auto_int
 #' @export
 update.tabular_auto_int <-
@@ -275,7 +275,7 @@ check_args.tabular_auto_int <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_auto_int <- function(x, infra = TRUE, ...) {
-  c("brulee", "tdl")
+  c("brulee", "tabular")
 }
 
 ## -----------------------------------------------------------------------------
@@ -366,7 +366,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_embedding",
     original = "num_embedding",
-    func = list(pkg = "tdl", fun = "num_embedding", range = c(2L, 25L)),
+    func = list(pkg = "tabular", fun = "num_embedding", range = c(2L, 25L)),
     has_submodel = FALSE
   )
 
@@ -397,7 +397,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_feat",
     original = "num_attn_feat",
-    func = list(pkg = "tdl", fun = "num_attn_feat", range = c(0L, 25L)),
+    func = list(pkg = "tabular", fun = "num_attn_feat", range = c(0L, 25L)),
     has_submodel = FALSE
   )
 
@@ -406,7 +406,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_heads",
     original = "num_attn_heads",
-    func = list(pkg = "tdl", fun = "num_attn_heads"),
+    func = list(pkg = "tabular", fun = "num_attn_heads"),
     has_submodel = FALSE
   )
 
@@ -415,7 +415,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_blocks",
     original = "num_attn_blocks",
-    func = list(pkg = "tdl", fun = "num_attn_blocks"),
+    func = list(pkg = "tabular", fun = "num_attn_blocks"),
     has_submodel = FALSE
   )
 
@@ -446,7 +446,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "dropout_attn",
     original = "dropout_attn",
-    func = list(pkg = "tdl", fun = "dropout_attn", range = c(0.05, 0.50)),
+    func = list(pkg = "tabular", fun = "dropout_attn", range = c(0.05, 0.50)),
     has_submodel = FALSE
   )
 
@@ -455,7 +455,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "dropout_embedding",
     original = "dropout_embedding",
-    func = list(pkg = "tdl", fun = "dropout_embedding", range = c(0.05, 0.50)),
+    func = list(pkg = "tabular", fun = "dropout_embedding", range = c(0.05, 0.50)),
     has_submodel = FALSE
   )
 
