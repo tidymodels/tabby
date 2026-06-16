@@ -20,10 +20,10 @@
 #'   in `brulee`) or `"L2"`. L1 is recommended by the original paper.
 #' @param penalty_average A positive numeric value for the target geometric mean
 #'   of the per-weight regularization coefficients, on the natural scale.
-#'   Best tuned on the log10 scale via [penalty_average()].
+#'   Best tuned on the log10 scale via [dials::penalty_average()].
 #' @param step_rate A positive numeric value for the step size used to update
 #'   the per-weight regularization coefficients, on the natural scale.
-#'   Best tuned on the log10 scale via [step_rate()].
+#'   Best tuned on the log10 scale via [dials::step_rate()].
 #' @param activation A character string for the activation function between
 #'   the hidden and output layers (e.g., `"relu"`, `"elu"`, `"tanh"`).
 #' @param epochs An integer for the number of training iterations.
@@ -240,7 +240,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "penalty_type",
     original = "penalty_type",
-    func = list(pkg = "tabular", fun = "penalty_type"),
+    func = list(pkg = "dials", fun = "penalty_type"),
     has_submodel = FALSE
   )
 
@@ -249,7 +249,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "penalty_average",
     original = "penalty_average",
-    func = list(pkg = "tabular", fun = "penalty_average"),
+    func = list(pkg = "dials", fun = "penalty_average"),
     has_submodel = FALSE
   )
 
@@ -258,7 +258,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "step_rate",
     original = "step_rate",
-    func = list(pkg = "tabular", fun = "step_rate"),
+    func = list(pkg = "dials", fun = "step_rate"),
     has_submodel = FALSE
   )
 
