@@ -9,6 +9,9 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tabular)](https://CRAN.R-project.org/package=tabular)
+[![R-CMD-check](https://github.com/tidymodels/tabular/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/tabular/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/tidymodels/tabular/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/tabular)
 <!-- badges: end -->
 
 The goal of tabular is to …

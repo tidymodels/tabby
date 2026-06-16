@@ -6,3 +6,7 @@
 ^CODE_OF_CONDUCT\.md$
 ^\.positai$
 ^\.claude$
+^\.github$
+^codecov\.yml$
+^[.]?air[.]toml$
+^\.vscode$
