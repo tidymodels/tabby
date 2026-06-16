@@ -126,5 +126,5 @@ test_that("required_pkgs.tabular_auto_int() returns expected packages", {
   pkgs <- required_pkgs(spec)
 
   expect_true("brulee" %in% pkgs)
-  expect_true("tdl" %in% pkgs)
+  expect_true("tabular" %in% pkgs)
 })

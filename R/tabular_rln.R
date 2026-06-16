@@ -92,7 +92,7 @@ tabular_rln <-
 # ------------------------------------------------------------------------------
 
 #' @method update tabular_rln
-#' @rdname tdl_update
+#' @rdname tabular_update
 #' @inheritParams tabular_rln
 #' @inheritParams update.tab_resnet
 #' @export
@@ -172,7 +172,7 @@ check_args.tabular_rln <- function(object, call = rlang::caller_env()) {
 #' @method required_pkgs tabular_rln
 #' @export
 required_pkgs.tabular_rln <- function(x, infra = TRUE, ...) {
-  c("brulee", "tdl")
+  c("brulee", "tabular")
 }
 
 # ------------------------------------------------------------------------------
@@ -240,7 +240,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "penalty_type",
     original = "penalty_type",
-    func = list(pkg = "tdl", fun = "penalty_type"),
+    func = list(pkg = "tabular", fun = "penalty_type"),
     has_submodel = FALSE
   )
 
@@ -249,7 +249,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "penalty_average",
     original = "penalty_average",
-    func = list(pkg = "tdl", fun = "penalty_average"),
+    func = list(pkg = "tabular", fun = "penalty_average"),
     has_submodel = FALSE
   )
 
@@ -258,7 +258,7 @@ make_tabular_rln <- function() {
     eng = "brulee",
     parsnip = "step_rate",
     original = "step_rate",
-    func = list(pkg = "tdl", fun = "step_rate"),
+    func = list(pkg = "tabular", fun = "step_rate"),
     has_submodel = FALSE
   )
 
