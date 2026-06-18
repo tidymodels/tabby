@@ -34,11 +34,11 @@ in \code{brulee}) or \code{"L2"}. L1 is recommended by the original paper.}
 
 \item{penalty_average}{A positive numeric value for the target geometric mean
 of the per-weight regularization coefficients, on the natural scale.
-Best tuned on the log10 scale via \code{\link[=penalty_average]{penalty_average()}}.}
+Best tuned on the log10 scale via \code{\link[dials:penalty_average]{dials::penalty_average()}}.}
 
 \item{step_rate}{A positive numeric value for the step size used to update
 the per-weight regularization coefficients, on the natural scale.
-Best tuned on the log10 scale via \code{\link[=step_rate]{step_rate()}}.}
+Best tuned on the log10 scale via \code{\link[dials:step_rate]{dials::step_rate()}}.}
 
 \item{activation}{A character string for the activation function between
 the hidden and output layers (e.g., \code{"relu"}, \code{"elu"}, \code{"tanh"}).}

@@ -269,7 +269,16 @@ make_tabular_resnet <- function() {
     eng = "brulee",
     parsnip = "bottleneck_units",
     original = "bottleneck_units",
-    func = list(pkg = "tabular", fun = "bottleneck_units"),
+    func = list(pkg = "dials", fun = "bottleneck_units"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_resnet",
+    eng = "brulee",
+    parsnip = "resid_at",
+    original = "residual_at",
+    func = list(pkg = "dials", fun = "resid_at"),
     has_submodel = FALSE
   )
 

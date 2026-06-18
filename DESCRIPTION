@@ -14,18 +14,20 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    dials,
+    dials (>= 1.4.3.9000),
     dplyr,
     generics,
     hardhat,
     purrr,
     rlang (>= 1.1.0),
-    scales,
     tibble
 Suggests:
+    brulee (>= 1.0.0),
     spelling,
     testthat (>= 3.0.0),
     torch
+Remotes:
+    tidymodels/dials
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)

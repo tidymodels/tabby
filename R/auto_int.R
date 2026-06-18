@@ -366,7 +366,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_embedding",
     original = "num_embedding",
-    func = list(pkg = "tabular", fun = "num_embedding", range = c(2L, 25L)),
+    func = list(pkg = "dials", fun = "num_embedding", range = c(2L, 25L)),
     has_submodel = FALSE
   )
 
@@ -397,7 +397,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_feat",
     original = "num_attn_feat",
-    func = list(pkg = "tabular", fun = "num_attn_feat", range = c(0L, 25L)),
+    func = list(pkg = "dials", fun = "num_attn_feat", range = c(0L, 25L)),
     has_submodel = FALSE
   )
 
@@ -406,7 +406,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_heads",
     original = "num_attn_heads",
-    func = list(pkg = "tabular", fun = "num_attn_heads"),
+    func = list(pkg = "dials", fun = "num_attn_heads"),
     has_submodel = FALSE
   )
 
@@ -415,7 +415,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "num_attn_blocks",
     original = "num_attn_blocks",
-    func = list(pkg = "tabular", fun = "num_attn_blocks"),
+    func = list(pkg = "dials", fun = "num_attn_blocks"),
     has_submodel = FALSE
   )
 
@@ -446,7 +446,7 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "dropout_attn",
     original = "dropout_attn",
-    func = list(pkg = "tabular", fun = "dropout_attn", range = c(0.05, 0.50)),
+    func = list(pkg = "dials", fun = "dropout_attn", range = c(0.05, 0.50)),
     has_submodel = FALSE
   )
 
@@ -455,7 +455,11 @@ make_tabular_auto_int <- function() {
     eng = "brulee",
     parsnip = "dropout_embedding",
     original = "dropout_embedding",
-    func = list(pkg = "tabular", fun = "dropout_embedding", range = c(0.05, 0.50)),
+    func = list(
+      pkg = "dials",
+      fun = "dropout_embedding",
+      range = c(0.05, 0.50)
+    ),
     has_submodel = FALSE
   )
 
