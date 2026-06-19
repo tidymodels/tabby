@@ -41,9 +41,17 @@
 #'  (classification only).
 #'
 #' @templateVar modeltype tabular_saint
-# @template spec-details
 #'
-# @template spec-references
+#' @details
+#' ## Row attention at prediction time
+#'
+#' When `attention_type` is `"row"` or `"both"`, SAINT applies inter-sample
+#' (row) attention across the samples in a batch. The \pkg{brulee} engine keeps
+#' this on at prediction time by default, so the prediction for a given row
+#' depends on which other rows are passed to [predict()] in the same call. To
+#' obtain batch-independent predictions (where a row's prediction does not
+#' change with its neighbors), bypass row attention at predict time with
+#' `set_engine("brulee", row_attention_on_predict = FALSE)`.
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_saint")}
 #'
@@ -317,7 +325,7 @@ multi_predict._brulee_saint <-
     res <-
       purrr::map(
         epochs,
-        ~ predict(object, new_data, type, epoch = .x) |>
+        ~ predict(object$fit, new_data, type = type, epoch = .x) |>
           dplyr::mutate(epochs = .x)
       ) |>
       purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>

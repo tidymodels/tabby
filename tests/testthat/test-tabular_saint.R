@@ -135,3 +135,96 @@ test_that("required_pkgs.tabular_saint() returns expected packages", {
   expect_true("brulee" %in% pkgs)
   expect_true("tabular" %in% pkgs)
 })
+
+# ------------------------------------------------------------------------------
+# Integration tests (require the brulee engine + torch)
+
+test_that("tabular_saint() fits and predicts (regression)", {
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_on_cran()
+
+  set.seed(1)
+  spec <- tabular_saint(
+    epochs = 5L,
+    num_embedding = 4L,
+    num_attn_heads = 2L,
+    num_attn_blocks = 1L
+  ) |>
+    parsnip::set_engine("brulee") |>
+    parsnip::set_mode("regression")
+
+  fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
+
+  expect_s3_class(fit, "model_fit")
+  expect_s3_class(fit$fit, "brulee_saint")
+
+  preds <- predict(fit, mtcars[1:5, ])
+  expect_s3_class(preds, "tbl_df")
+  expect_named(preds, ".pred")
+  expect_equal(nrow(preds), 5)
+  expect_true(is.numeric(preds$.pred))
+})
+
+test_that("tabular_saint() fits and predicts (classification)", {
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_on_cran()
+
+  set.seed(1)
+  spec <- tabular_saint(
+    epochs = 5L,
+    num_embedding = 4L,
+    num_attn_heads = 2L,
+    num_attn_blocks = 1L
+  ) |>
+    parsnip::set_engine("brulee") |>
+    parsnip::set_mode("classification")
+
+  fit <- parsnip::fit(spec, Species ~ ., data = iris)
+
+  expect_s3_class(fit, "model_fit")
+  expect_s3_class(fit$fit, "brulee_saint")
+
+  cls <- predict(fit, iris[1:5, ])
+  expect_named(cls, ".pred_class")
+  expect_s3_class(cls$.pred_class, "factor")
+  expect_equal(nrow(cls), 5)
+
+  prob <- predict(fit, iris[1:5, ], type = "prob")
+  expect_named(
+    prob,
+    c(".pred_setosa", ".pred_versicolor", ".pred_virginica")
+  )
+  expect_equal(nrow(prob), 5)
+})
+
+test_that("multi_predict._brulee_saint() returns predictions at multiple epochs", {
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_on_cran()
+
+  set.seed(1)
+  spec <- tabular_saint(
+    epochs = 10L,
+    num_embedding = 4L,
+    num_attn_heads = 2L,
+    num_attn_blocks = 1L
+  ) |>
+    parsnip::set_engine("brulee") |>
+    parsnip::set_mode("regression")
+  fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
+
+  mp <- parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L))
+  expect_s3_class(mp, "tbl_df")
+  expect_equal(nrow(mp), 3)
+  expect_named(mp, ".pred")
+
+  inner <- mp$.pred[[1]]
+  expect_true(all(c("epochs", ".pred") %in% names(inner)))
+  expect_equal(nrow(inner), 2)
+  expect_equal(inner$epochs, c(3L, 7L))
+})

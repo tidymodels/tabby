@@ -106,6 +106,18 @@ classification and regression models.
 More information on how \pkg{parsnip} is used for modeling is at
 \url{https://www.tidymodels.org/}.
 }
+\details{
+\subsection{Row attention at prediction time}{
+
+When \code{attention_type} is \code{"row"} or \code{"both"}, SAINT applies inter-sample
+(row) attention across the samples in a batch. The \pkg{brulee} engine keeps
+this on at prediction time by default, so the prediction for a given row
+depends on which other rows are passed to \code{\link[=predict]{predict()}} in the same call. To
+obtain batch-independent predictions (where a row's prediction does not
+change with its neighbors), bypass row attention at predict time with
+\code{set_engine("brulee", row_attention_on_predict = FALSE)}.
+}
+}
 \examples{
 \dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
 show_engines("tabular_saint")
