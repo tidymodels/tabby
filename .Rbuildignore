@@ -10,3 +10,4 @@
 ^codecov\.yml$
 ^[.]?air[.]toml$
 ^\.vscode$
+^\.roborev$
