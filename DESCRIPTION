@@ -22,7 +22,7 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.0),
+    brulee (>= 1.0.0.9001),
     spelling,
     testthat (>= 3.0.0),
     torch
