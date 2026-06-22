@@ -17,6 +17,7 @@ tabular_saint(
   dropout_last = NULL,
   hidden_units = NULL,
   hidden_activations = NULL,
+  target_token = NULL,
   penalty = NULL,
   mixture = NULL,
   learn_rate = NULL,
@@ -65,6 +66,11 @@ layers after the attention mechanism.}
 
 \item{hidden_activations}{A character vector denoting the activation functions
 for the hidden layers.}
+
+\item{target_token}{A logical for whether to use a learnable target token
+(CLS-like embedding) to aggregate information for prediction. When \code{TRUE},
+the model appends a special target token to the input that attends to all
+features via the attention mechanism.}
 
 \item{penalty}{A non-negative numeric value for the amount of weight
 decay.}

@@ -91,6 +91,7 @@
   dropout_last = NULL,
   hidden_units = NULL,
   hidden_activations = NULL,
+  target_token = NULL,
   penalty = NULL,
   mixture = NULL,
   learn_rate = NULL,
@@ -221,6 +222,11 @@ proportion of values in the feed-forward layers set to zero during training.}
 \item{dropout_last}{A number between 0 (inclusive) and 1 denoting the
 proportion of values set to zero between the last hidden layer and the
 output head.}
+
+\item{target_token}{A logical for whether to use a learnable target token
+(CLS-like embedding) to aggregate information for prediction. When \code{TRUE},
+the model appends a special target token to the input that attends to all
+features via the attention mechanism.}
 }
 \description{
 Updating a model specification
