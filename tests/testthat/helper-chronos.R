@@ -4,7 +4,7 @@
 # tests/testthat/helper-chronos2.R. testthat sources every `helper-*.R` before
 # the test files, so this is available to all chronos tests.
 
-stub_chronos_loaders <- function() {
+stub_chronos_loaders <- function(also_mock_predict_core = FALSE) {
   fake_dir <- file.path(
     tempdir(check = TRUE),
     paste0("chronos-stub-", as.integer(Sys.time()))
@@ -35,10 +35,15 @@ stub_chronos_loaders <- function() {
     chronos2_model = function(config) {
       structure(list(config = config), class = "fake_chronos_module")
     },
-    load_chronos2_weights = function(model, path) invisible(NULL),
+    load_chronos2_weights = function(model, path) invisible(NULL)
+  )
+
+  if (also_mock_predict_core) {
     # Deterministic [n_series, n_model_quantiles, prediction_length] array.
-    # Quantiles are fixed at config$quantiles = (1:9)/10 (see above).
-    chronos2_predict_core = function(
+    # Quantiles are fixed at config$quantiles = (1:9)/10 (see above). Opt-in so
+    # that, when torch is available, tests can instead exercise the real
+    # brulee predict core and catch argument-mapping regressions.
+    bindings$chronos2_predict_core <- function(
       object,
       context,
       prediction_length = NULL,
@@ -61,7 +66,7 @@ stub_chronos_loaders <- function() {
         prediction_length = prediction_length
       )
     }
-  )
+  }
 
   do.call(
     testthat::local_mocked_bindings,

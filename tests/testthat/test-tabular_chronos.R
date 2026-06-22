@@ -54,7 +54,7 @@ test_that("tabular_chronos() fits and forecasts in quantile regression mode", {
   skip_if_not(torch::torch_is_installed())
   skip_if_not_installed("modeldata")
 
-  stub_chronos_loaders()
+  stub_chronos_loaders(also_mock_predict_core = TRUE)
   Chi <- chicago_subset()
 
   spec <- tabular_chronos() |>
@@ -84,7 +84,7 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
   skip_if_not(torch::torch_is_installed())
   skip_if_not_installed("modeldata")
 
-  stub_chronos_loaders()
+  stub_chronos_loaders(also_mock_predict_core = TRUE)
   Chi <- chicago_subset()
 
   spec <- tabular_chronos() |>
@@ -104,4 +104,40 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
   expect_named(preds, ".pred")
   expect_true(is.numeric(preds$.pred))
   expect_equal(nrow(preds), 14L)
+  # Guard against the column extraction / median collapsing to a constant: the
+  # deterministic stub varies the forecast by horizon step, so .pred must not be
+  # all-identical (and not all-zero).
+  expect_true(all(preds$.pred != 0))
+  expect_gt(length(unique(preds$.pred)), 1L)
+})
+
+test_that("tabular_chronos() errors on multiple series via the parsnip interface", {
+  skip_on_cran()
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+
+  stub_chronos_loaders(also_mock_predict_core = TRUE)
+
+  set.seed(1)
+  n <- 30L
+  multi <- data.frame(
+    series_id = rep(c("A", "B"), each = n),
+    idx = rep(seq_len(n), times = 2L),
+    y = rnorm(2L * n),
+    cov1 = rnorm(2L * n)
+  )
+
+  spec <- tabular_chronos() |>
+    parsnip::set_engine(
+      "brulee",
+      id_column = "series_id",
+      timestamp_column = "idx",
+      prediction_length = 5L
+    ) |>
+    parsnip::set_mode("regression")
+
+  fit <- parsnip::fit(spec, y ~ cov1, data = multi)
+
+  expect_error(predict(fit, multi), regexp = "single series")
 })

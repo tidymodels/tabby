@@ -33,6 +33,13 @@
 #' On first use the engine downloads the pretrained weights (about 500MB) and
 #' caches them locally.
 #'
+#' The \pkg{parsnip} interface forecasts a __single series__. `predict()`
+#' returns one row per horizon step (`.pred_quantile` or `.pred`), which cannot
+#' unambiguously represent more than one series; supplying data with multiple
+#' `id_column` values is therefore an error. For multi-series forecasting, call
+#' [brulee::brulee_chronos()] directly, where the id column is retained in the
+#' output.
+#'
 #' @templateVar modeltype tabular_chronos
 #'
 #' @seealso \Sexpr[stage=render,results=rd]{parsnip:::make_seealso_list("tabular_chronos")} [brulee::brulee_chronos()]
@@ -108,14 +115,33 @@ required_pkgs.tabular_chronos <- function(x, infra = TRUE, ...) {
 
 # ------------------------------------------------------------------------------
 # Prediction post-processors: brulee_chronos returns a tibble with `.pred`
-# (median) and `.pred_quantile` (a hardhat::quantile_pred), plus an id column
-# for multi-series output. Select the column parsnip expects for each type.
+# (median) and `.pred_quantile` (a hardhat::quantile_pred). For multiple series
+# it also prepends an id column; the parsnip interface only forecasts a single
+# series (one horizon-length output cannot label which series each row belongs
+# to), so `chronos_single_series()` errors rather than silently dropping the id.
+
+chronos_single_series <- function(x, call = rlang::caller_env()) {
+  extra <- setdiff(names(x), c(".pred", ".pred_quantile"))
+  if (length(extra) > 0L) {
+    cli::cli_abort(
+      c(
+        "The {.pkg parsnip} interface to {.fn brulee::brulee_chronos} forecasts a single series.",
+        "i" = "Multiple series were detected (id column {.val {extra}}).",
+        "i" = "For multi-series forecasting, use {.fn brulee::brulee_chronos} directly."
+      ),
+      call = call
+    )
+  }
+  invisible(x)
+}
 
 chronos_quantile <- function(x, object) {
+  chronos_single_series(x)
   tibble::tibble(.pred_quantile = x$.pred_quantile)
 }
 
 chronos_numeric <- function(x, object) {
+  chronos_single_series(x)
   tibble::tibble(.pred = x$.pred)
 }
 

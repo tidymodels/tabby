@@ -40,6 +40,13 @@ The available engine arguments mirror \code{\link[brulee:brulee_chronos]{brulee:
 
 On first use the engine downloads the pretrained weights (about 500MB) and
 caches them locally.
+
+The \pkg{parsnip} interface forecasts a \strong{single series}. \code{predict()}
+returns one row per horizon step (\code{.pred_quantile} or \code{.pred}), which cannot
+unambiguously represent more than one series; supplying data with multiple
+\code{id_column} values is therefore an error. For multi-series forecasting, call
+\code{\link[brulee:brulee_chronos]{brulee::brulee_chronos()}} directly, where the id column is retained in the
+output.
 }
 \examples{
 \dontshow{if (!parsnip:::is_cran_check()) withAutoprint(\{ # examplesIf}
