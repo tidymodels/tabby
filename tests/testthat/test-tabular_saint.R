@@ -201,7 +201,7 @@ test_that("tabular_saint() fits and predicts (classification)", {
   expect_equal(nrow(prob), 5)
 })
 
-test_that("multi_predict._brulee_saint() returns predictions at multiple epochs", {
+test_that("tabular_saint() does not support multi_predict()", {
   skip_if_not_installed("brulee")
   skip_if_not_installed("torch")
   skip_if_not(torch::torch_is_installed())
@@ -209,7 +209,7 @@ test_that("multi_predict._brulee_saint() returns predictions at multiple epochs"
 
   set.seed(1)
   spec <- tabular_saint(
-    epochs = 10L,
+    epochs = 5L,
     num_embedding = 4L,
     num_attn_heads = 2L,
     num_attn_blocks = 1L
@@ -218,13 +218,8 @@ test_that("multi_predict._brulee_saint() returns predictions at multiple epochs"
     parsnip::set_mode("regression")
   fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
 
-  mp <- parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L))
-  expect_s3_class(mp, "tbl_df")
-  expect_equal(nrow(mp), 3)
-  expect_named(mp, ".pred")
-
-  inner <- mp$.pred[[1]]
-  expect_true(all(c("epochs", ".pred") %in% names(inner)))
-  expect_equal(nrow(inner), 2)
-  expect_equal(inner$epochs, c(3L, 7L))
+  expect_error(
+    parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L)),
+    "multi_predict"
+  )
 })

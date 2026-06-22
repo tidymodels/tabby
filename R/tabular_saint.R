@@ -297,45 +297,6 @@ required_pkgs.tabular_saint <- function(x, infra = TRUE, ...) {
   c("brulee", "tabular")
 }
 
-## -----------------------------------------------------------------------------
-
-#' @importFrom purrr map
-#' @importFrom dplyr arrange select
-#' @rdname multi_predict
-#' @param epochs An integer vector for the number of training epochs.
-#' @export
-multi_predict._brulee_saint <-
-  function(object, new_data, type = NULL, epochs = NULL, ...) {
-    load_libs(object, quiet = TRUE, attach = TRUE)
-
-    if (is.null(epochs)) {
-      epochs <- length(object$fit$estimates)
-    }
-
-    epochs <- sort(epochs)
-
-    if (is.null(type)) {
-      if (object$spec$mode == "classification") {
-        type <- "class"
-      } else {
-        type <- "numeric"
-      }
-    }
-
-    res <-
-      purrr::map(
-        epochs,
-        ~ predict(object$fit, new_data, type = type, epoch = .x) |>
-          dplyr::mutate(epochs = .x)
-      ) |>
-      purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
-      purrr::list_rbind() |>
-      dplyr::arrange(.row, epochs)
-    res <- split(dplyr::select(res, -.row), res$.row)
-    names(res) <- NULL
-    tibble::tibble(.pred = res)
-  }
-
 # ------------------------------------------------------------------------------
 
 make_tabular_saint <- function() {
