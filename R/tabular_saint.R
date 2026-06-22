@@ -37,6 +37,10 @@
 #' @param momentum A number for the momentum parameter in optimizers that use it.
 #' @param batch_size An integer for the number of training instances in each
 #'  batch.
+#' @param target_token A logical for whether to use a learnable target token
+#'  (CLS-like embedding) to aggregate information for prediction. When `TRUE`,
+#'  the model appends a special target token to the input that attends to all
+#'  features via the attention mechanism.
 #' @param class_weights Numeric class weights for imbalanced data
 #'  (classification only).
 #'
@@ -80,6 +84,7 @@ tabular_saint <-
     dropout_last = NULL,
     hidden_units = NULL,
     hidden_activations = NULL,
+    target_token = NULL,
     penalty = NULL,
     mixture = NULL,
     learn_rate = NULL,
@@ -100,6 +105,7 @@ tabular_saint <-
       dropout_last = enquo(dropout_last),
       hidden_units = enquo(hidden_units),
       hidden_activations = enquo(hidden_activations),
+      target_token = enquo(target_token),
       penalty = enquo(penalty),
       mixture = enquo(mixture),
       learn_rate = enquo(learn_rate),
@@ -142,6 +148,7 @@ update.tabular_saint <-
     dropout_last = NULL,
     hidden_units = NULL,
     hidden_activations = NULL,
+    target_token = NULL,
     penalty = NULL,
     mixture = NULL,
     learn_rate = NULL,
@@ -164,6 +171,7 @@ update.tabular_saint <-
       dropout_last = enquo(dropout_last),
       hidden_units = enquo(hidden_units),
       hidden_activations = enquo(hidden_activations),
+      target_token = enquo(target_token),
       penalty = enquo(penalty),
       mixture = enquo(mixture),
       learn_rate = enquo(learn_rate),
@@ -427,6 +435,15 @@ make_tabular_saint <- function() {
       fun = "activation",
       values = c("relu", "elu", "tanh")
     ),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_saint",
+    eng = "brulee",
+    parsnip = "target_token",
+    original = "target_token",
+    func = list(pkg = "dials", fun = "target_token"),
     has_submodel = FALSE
   )
 
