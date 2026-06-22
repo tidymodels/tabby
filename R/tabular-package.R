@@ -20,7 +20,7 @@ generics::required_pkgs
 
 # ------------------------------------------------------------------------------
 
-utils::globalVariables("id")
+utils::globalVariables(c("id", "quantile_levels"))
 
 # ------------------------------------------------------------------------------
 # From other packages
