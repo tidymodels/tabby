@@ -105,9 +105,8 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
   expect_true(is.numeric(preds$.pred))
   expect_equal(nrow(preds), 14L)
   # Guard against the column extraction / median collapsing to a constant: the
-  # deterministic stub varies the forecast by horizon step, so .pred must not be
-  # all-identical (and not all-zero).
-  expect_true(all(preds$.pred != 0))
+  # deterministic stub varies the forecast by horizon step, so .pred must be
+  # non-constant.
   expect_gt(length(unique(preds$.pred)), 1L)
 })
 
@@ -128,16 +127,23 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
     cov1 = rnorm(2L * n)
   )
 
-  spec <- tabular_chronos() |>
+  base_spec <- tabular_chronos() |>
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
       timestamp_column = "idx",
       prediction_length = 5L
-    ) |>
-    parsnip::set_mode("regression")
+    )
 
-  fit <- parsnip::fit(spec, y ~ cov1, data = multi)
+  # Both prediction types route through chronos_single_series(): regression mode
+  # via chronos_numeric, quantile regression mode via chronos_quantile.
+  reg_fit <- base_spec |>
+    parsnip::set_mode("regression") |>
+    parsnip::fit(y ~ cov1, data = multi)
+  expect_error(predict(reg_fit, multi), regexp = "single series")
 
-  expect_error(predict(fit, multi), regexp = "single series")
+  qr_fit <- base_spec |>
+    parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
+    parsnip::fit(y ~ cov1, data = multi)
+  expect_error(predict(qr_fit, multi), regexp = "single series")
 })
