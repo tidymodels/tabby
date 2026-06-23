@@ -83,7 +83,6 @@ tabular_chronos <-
 #' @method update tabular_chronos
 #' @rdname tabular_update
 #' @inheritParams tabular_chronos
-#' @inheritParams update.tab_resnet
 #' @export
 update.tabular_chronos <-
   function(object, parameters = NULL, fresh = FALSE, ...) {

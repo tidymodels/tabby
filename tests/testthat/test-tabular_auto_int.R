@@ -82,7 +82,6 @@ test_that("check_args.tabular_auto_int() validates penalty", {
   expect_error(
     parsnip::check_args(spec),
     "penalty"
-
   )
 })
 
