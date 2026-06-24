@@ -23,9 +23,11 @@ Imports:
     tibble
 Suggests:
     brulee (>= 1.0.0),
+    modeldata,
     spelling,
     testthat (>= 3.0.0),
-    torch
+    torch,
+    withr
 Remotes:
     tidymodels/dials
 Encoding: UTF-8

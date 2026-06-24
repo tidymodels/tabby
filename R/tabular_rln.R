@@ -94,7 +94,6 @@ tabular_rln <-
 #' @method update tabular_rln
 #' @rdname tabular_update
 #' @inheritParams tabular_rln
-#' @inheritParams update.tab_resnet
 #' @export
 update.tabular_rln <-
   function(
