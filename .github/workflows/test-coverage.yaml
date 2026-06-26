@@ -14,9 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NOT_CRAN: true                               # run skip_on_cran() integration tests
+      TORCH_INSTALL: 1                             # auto-download the torch backend if missing
+      TORCH_HOME: ${{ github.workspace }}/.torch   # persistent, cacheable backend location
 
     steps:
       - uses: actions/checkout@v6
+
+      - name: Cache torch backend
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.torch
+          key: torch-${{ runner.os }}-${{ hashFiles('DESCRIPTION') }}
+          restore-keys: torch-${{ runner.os }}-
 
       - uses: r-lib/actions/setup-r@v2
 
