@@ -93,7 +93,7 @@ test_that("tabular_resnet() fits and predicts (regression)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(93413)
   spec <- tabular_resnet(hidden_units = 4L, epochs = 5L) |>
     parsnip::set_engine("brulee") |>
     parsnip::set_mode("regression")
@@ -116,7 +116,7 @@ test_that("tabular_resnet() fits and predicts (classification)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(735998)
   spec <- tabular_resnet(hidden_units = 4L, epochs = 5L) |>
     parsnip::set_engine("brulee") |>
     parsnip::set_mode("classification")
@@ -145,7 +145,7 @@ test_that("multi_predict._brulee_resnet() returns predictions at multiple epochs
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(819425)
   spec <- tabular_resnet(hidden_units = 4L, epochs = 10L) |>
     parsnip::set_engine("brulee") |>
     parsnip::set_mode("regression")
@@ -179,7 +179,7 @@ test_that("multi_predict._brulee_resnet() supports classification", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(530721)
   spec <- tabular_resnet(hidden_units = 4L, epochs = 10L) |>
     parsnip::set_engine("brulee") |>
     parsnip::set_mode("classification")

@@ -119,7 +119,7 @@ test_that("tabular_saint() fits and predicts (regression)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(425917)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,
@@ -147,7 +147,7 @@ test_that("tabular_saint() fits and predicts (classification)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(672144)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,
@@ -181,7 +181,7 @@ test_that("tabular_saint() does not support multi_predict()", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(565509)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,

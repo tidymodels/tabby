@@ -88,7 +88,7 @@ test_that("tabular_rln() fits and predicts with brulee engine", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(193044)
   spec <- tabular_rln(hidden_units = 3L, epochs = 5L) |>
     parsnip::set_engine("brulee")
 
@@ -110,7 +110,7 @@ test_that("multi_predict._brulee_rln() returns predictions at multiple epochs", 
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(403479)
   spec <- tabular_rln(hidden_units = 3L, epochs = 10L) |>
     parsnip::set_engine("brulee")
   fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)

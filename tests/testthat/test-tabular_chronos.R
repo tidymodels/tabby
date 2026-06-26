@@ -121,7 +121,7 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
 
   stub_chronos_loaders(also_mock_predict_core = TRUE)
 
-  set.seed(1)
+  set.seed(656377)
   n <- 30L
   multi <- data.frame(
     series_id = rep(c("A", "B"), each = n),

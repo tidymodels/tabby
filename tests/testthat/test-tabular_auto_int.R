@@ -114,7 +114,7 @@ test_that("multi_predict._brulee_auto_int() returns predictions at multiple epoc
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(337873)
   spec <- tabular_auto_int(
     epochs = 10L,
     num_embedding = 4L,
@@ -146,7 +146,7 @@ test_that("multi_predict._brulee_auto_int() works for classification", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(772885)
   spec <- tabular_auto_int(
     epochs = 10L,
     num_embedding = 4L,
