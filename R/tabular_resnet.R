@@ -184,7 +184,7 @@ multi_predict._brulee_resnet <-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs)) {
-      epochs <- length(object$fit$estimates)
+      epochs <- length(object$fit$estimates) - 1L
     }
 
     epochs <- sort(epochs)
