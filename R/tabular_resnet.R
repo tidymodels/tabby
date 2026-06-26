@@ -179,12 +179,12 @@ required_pkgs.tabular_resnet <- function(x, infra = TRUE, ...) {
 #' @inheritParams parsnip::multi_predict
 #' @param epochs An integer vector for the number of training epochs.
 #' @export
-multi_predict._torch_resnet <-
+multi_predict._brulee_resnet <-
   function(object, new_data, type = NULL, epochs = NULL, ...) {
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs)) {
-      epochs <- length(object$fit$models)
+      epochs <- length(object$fit$estimates)
     }
 
     epochs <- sort(epochs)
@@ -200,7 +200,7 @@ multi_predict._torch_resnet <-
     res <-
       purrr::map(
         epochs,
-        ~ predict(object, new_data, type, epochs = .x) |>
+        ~ predict(object$fit, new_data, type = type, epoch = .x) |>
           dplyr::mutate(epochs = .x)
       ) |>
       purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>

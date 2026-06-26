@@ -139,20 +139,31 @@ test_that("tabular_resnet() fits and predicts (classification)", {
   expect_equal(nrow(prob), 5)
 })
 
-test_that("tabular_resnet() does not support multi_predict()", {
+test_that("multi_predict._brulee_resnet() returns predictions at multiple epochs", {
   skip_if_not_installed("brulee")
   skip_if_not_installed("torch")
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
   set.seed(1)
-  spec <- tabular_resnet(hidden_units = 4L, epochs = 5L) |>
+  spec <- tabular_resnet(hidden_units = 4L, epochs = 10L) |>
     parsnip::set_engine("brulee") |>
     parsnip::set_mode("regression")
   fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
 
-  expect_snapshot(
-    error = TRUE,
-    parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(2L, 4L))
-  )
+  mp <- parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L))
+  expect_s3_class(mp, "tbl_df")
+  expect_equal(nrow(mp), 3)
+  expect_named(mp, ".pred")
+
+  inner <- mp$.pred[[1]]
+  expect_true(all(c("epochs", ".pred") %in% names(inner)))
+  expect_equal(nrow(inner), 2)
+  expect_equal(inner$epochs, c(3L, 7L))
+
+  # NOTE: structure is asserted but not the `.pred` values: brulee 1.0.0's
+  # `predict.brulee_resnet(epoch = )` currently returns NA at per-epoch
+  # selections (unlike `predict.brulee_rln()`). Tighten to value checks once
+  # the upstream brulee issue is resolved -- see
+  # .github/planning/test-coverage.md (brulee research step).
 })

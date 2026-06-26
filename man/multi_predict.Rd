@@ -3,13 +3,13 @@
 %   R/tabular_rln.R
 \name{multi_predict._brulee_auto_int}
 \alias{multi_predict._brulee_auto_int}
-\alias{multi_predict._torch_resnet}
+\alias{multi_predict._brulee_resnet}
 \alias{multi_predict._brulee_rln}
 \title{Model predictions across many sub-models}
 \usage{
 \method{multi_predict}{`_brulee_auto_int`}(object, new_data, type = NULL, epochs = NULL, ...)
 
-\method{multi_predict}{`_torch_resnet`}(object, new_data, type = NULL, epochs = NULL, ...)
+\method{multi_predict}{`_brulee_resnet`}(object, new_data, type = NULL, epochs = NULL, ...)
 
 \method{multi_predict}{`_brulee_rln`}(object, new_data, type = NULL, epochs = NULL, ...)
 }
