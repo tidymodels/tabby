@@ -38,6 +38,10 @@ jobs:
       - name: Install torch backend
         run: |
           options(timeout = 600)
+          home <- Sys.getenv("TORCH_HOME")
+          dir.create(home, recursive = TRUE, showWarnings = FALSE)
+          cat("TORCH_HOME:", home, "| exists:", dir.exists(home),
+              "| writable:", file.access(home, 2) >= 0, "\n")
           if (!torch::torch_is_installed()) torch::install_torch()
         shell: Rscript {0}
 
