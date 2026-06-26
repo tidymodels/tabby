@@ -18,9 +18,9 @@ test_that("tabular_rln() only supports regression mode", {
   spec <- tabular_rln(mode = "regression")
   expect_equal(spec$mode, "regression")
 
-  expect_error(
-    tabular_rln(mode = "classification") |> parsnip::set_engine("brulee"),
-    regexp = "classification"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(mode = "classification") |> parsnip::set_engine("brulee")
   )
 })
 
@@ -48,23 +48,23 @@ test_that("check_args.tabular_rln() passes valid arguments", {
 })
 
 test_that("check_args.tabular_rln() rejects invalid penalty_type", {
-  expect_error(
-    tabular_rln(penalty_type = "L3") |> parsnip::check_args(),
-    regexp = "penalty_type"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(penalty_type = "L3") |> parsnip::check_args()
   )
 })
 
 test_that("check_args.tabular_rln() rejects negative penalty_average", {
-  expect_error(
-    tabular_rln(penalty_average = -1) |> parsnip::check_args(),
-    regexp = "penalty_average"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(penalty_average = -1) |> parsnip::check_args()
   )
 })
 
 test_that("check_args.tabular_rln() rejects negative step_rate", {
-  expect_error(
-    tabular_rln(step_rate = -1) |> parsnip::check_args(),
-    regexp = "step_rate"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(step_rate = -1) |> parsnip::check_args()
   )
 })
 

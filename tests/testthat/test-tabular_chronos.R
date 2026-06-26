@@ -143,10 +143,10 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
   reg_fit <- base_spec |>
     parsnip::set_mode("regression") |>
     parsnip::fit(y ~ cov1, data = multi)
-  expect_error(predict(reg_fit, multi), regexp = "single series")
+  expect_snapshot(error = TRUE, predict(reg_fit, multi))
 
   qr_fit <- base_spec |>
     parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
     parsnip::fit(y ~ cov1, data = multi)
-  expect_error(predict(qr_fit, multi), regexp = "single series")
+  expect_snapshot(error = TRUE, predict(qr_fit, multi))
 })
