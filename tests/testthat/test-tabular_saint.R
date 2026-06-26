@@ -30,6 +30,9 @@ test_that("tabular_saint() captures arguments", {
 })
 
 test_that("tabular_saint() engine is registered", {
+  reregister_model("tabular_saint")
+  expect_no_error(make_tabular_saint())
+
   engines <- show_engines("tabular_saint")
 
   expect_true("brulee" %in% engines$engine)

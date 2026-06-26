@@ -29,6 +29,9 @@ test_that("required_pkgs.tabular_chronos() returns expected packages", {
 })
 
 test_that("tabular_chronos() is registered for both modes", {
+  reregister_model("tabular_chronos")
+  expect_no_error(make_tabular_chronos())
+
   engines <- parsnip::show_engines("tabular_chronos")
   expect_true("brulee" %in% engines$engine)
   expect_setequal(engines$mode, c("quantile regression", "regression"))

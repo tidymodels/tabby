@@ -74,6 +74,9 @@ test_that("required_pkgs.tabular_rln() returns expected packages", {
 })
 
 test_that("tabular_rln() is registered with parsnip", {
+  reregister_model("tabular_rln")
+  expect_no_error(make_tabular_rln())
+
   engines <- parsnip::show_engines("tabular_rln")
   expect_true("brulee" %in% engines$engine)
   expect_true(all(engines$mode == "regression"))

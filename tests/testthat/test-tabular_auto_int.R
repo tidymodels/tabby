@@ -30,6 +30,9 @@ test_that("tabular_auto_int() captures arguments", {
 })
 
 test_that("tabular_auto_int() engine is registered", {
+  reregister_model("tabular_auto_int")
+  expect_no_error(make_tabular_auto_int())
+
   engines <- show_engines("tabular_auto_int")
 
   expect_true("brulee" %in% engines$engine)
