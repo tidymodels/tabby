@@ -124,4 +124,9 @@ test_that("multi_predict._brulee_rln() returns predictions at multiple epochs", 
   expect_true(all(c("epochs", ".pred") %in% names(inner)))
   expect_equal(nrow(inner), 2)
   expect_equal(inner$epochs, c(3L, 7L))
+
+  # epochs = NULL defaults to the final fitted epoch
+  mp_default <- parsnip::multi_predict(fit, mtcars[1:2, ])
+  expect_equal(nrow(mp_default), 2)
+  expect_equal(nrow(mp_default$.pred[[1]]), 1)
 })

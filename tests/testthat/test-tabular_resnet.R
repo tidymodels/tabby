@@ -166,4 +166,40 @@ test_that("multi_predict._brulee_resnet() returns predictions at multiple epochs
   # selections (unlike `predict.brulee_rln()`). Tighten to value checks once
   # the upstream brulee issue is resolved -- see
   # .github/planning/test-coverage.md (brulee research step).
+
+  # epochs = NULL defaults to the final fitted epoch
+  mp_default <- parsnip::multi_predict(fit, mtcars[1:2, ])
+  expect_equal(nrow(mp_default), 2)
+  expect_equal(nrow(mp_default$.pred[[1]]), 1)
+})
+
+test_that("multi_predict._brulee_resnet() supports classification", {
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_on_cran()
+
+  set.seed(1)
+  spec <- tabular_resnet(hidden_units = 4L, epochs = 10L) |>
+    parsnip::set_engine("brulee") |>
+    parsnip::set_mode("classification")
+  fit <- parsnip::fit(spec, Species ~ ., data = iris)
+
+  mp <- parsnip::multi_predict(fit, iris[1:3, ], epochs = c(3L, 7L))
+  expect_equal(nrow(mp), 3)
+
+  inner <- mp$.pred[[1]]
+  expect_true(".pred_class" %in% names(inner))
+  expect_equal(inner$epochs, c(3L, 7L))
+})
+
+test_that("reformat_torch_num() widens multi-column results", {
+  # exercises the multivariate branch not reached via single-outcome predict
+  results <- matrix(c(1, 2, 3, 4), ncol = 2)
+  object <- list(preproc = list(y_var = c("y1", "y2")))
+
+  out <- reformat_torch_num(results, object)
+  expect_s3_class(out, "tbl_df")
+  expect_named(out, c("y1", "y2"))
+  expect_equal(nrow(out), 2)
 })
