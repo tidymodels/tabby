@@ -30,11 +30,12 @@ test_that("tabular_saint() captures arguments", {
 })
 
 test_that("tabular_saint() engine is registered", {
-  engines <- show_engines("tabular_saint")
+  reregister_model("tabular_saint")
+  expect_no_error(make_tabular_saint())
 
+  engines <- parsnip::show_engines("tabular_saint")
   expect_true("brulee" %in% engines$engine)
-  expect_true("classification" %in% engines$mode)
-  expect_true("regression" %in% engines$mode)
+  expect_setequal(engines$mode, c("classification", "regression"))
 })
 
 test_that("update.tabular_saint() works", {
@@ -55,72 +56,45 @@ test_that("update.tabular_saint() with fresh = TRUE replaces all args", {
 
 test_that("check_args.tabular_saint() validates dropout_attn range", {
   spec <- tabular_saint(mode = "regression", dropout_attn = 1.5)
-  expect_error(
-    parsnip::check_args(spec),
-    "dropout_attn"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates dropout_hidden range", {
   spec <- tabular_saint(mode = "regression", dropout_hidden = 2)
-  expect_error(
-    parsnip::check_args(spec),
-    "dropout_hidden"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates dropout_last range", {
   spec <- tabular_saint(mode = "regression", dropout_last = -0.1)
-  expect_error(
-    parsnip::check_args(spec),
-    "dropout_last"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates penalty", {
   spec <- tabular_saint(mode = "regression", penalty = -1)
-  expect_error(
-    parsnip::check_args(spec),
-    "penalty"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates mixture range", {
   spec <- tabular_saint(mode = "regression", mixture = 2)
-  expect_error(
-    parsnip::check_args(spec),
-    "mixture"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates integer params", {
   spec <- tabular_saint(mode = "regression", epochs = -1)
-  expect_error(
-    parsnip::check_args(spec),
-    "epochs"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 
   spec <- tabular_saint(mode = "regression", num_attn_heads = 0)
-  expect_error(
-    parsnip::check_args(spec),
-    "num_attn_heads"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() validates attention_type", {
   spec <- tabular_saint(mode = "regression", attention_type = "bad_value")
-  expect_error(
-    parsnip::check_args(spec),
-    "attention_type"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() rejects both penalty and dropout_attn", {
   spec <- tabular_saint(mode = "regression", penalty = 0.1, dropout_attn = 0.2)
-  expect_error(
-    parsnip::check_args(spec),
-    "Both weight decay and dropout"
-  )
+  expect_snapshot(error = TRUE, parsnip::check_args(spec))
 })
 
 test_that("check_args.tabular_saint() allows NULL args", {
@@ -145,7 +119,7 @@ test_that("tabular_saint() fits and predicts (regression)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(425917)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,
@@ -173,7 +147,7 @@ test_that("tabular_saint() fits and predicts (classification)", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(672144)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,
@@ -207,7 +181,7 @@ test_that("tabular_saint() does not support multi_predict()", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(565509)
   spec <- tabular_saint(
     epochs = 5L,
     num_embedding = 4L,
@@ -218,8 +192,8 @@ test_that("tabular_saint() does not support multi_predict()", {
     parsnip::set_mode("regression")
   fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
 
-  expect_error(
-    parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L)),
-    "multi_predict"
+  expect_snapshot(
+    error = TRUE,
+    parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L))
   )
 })

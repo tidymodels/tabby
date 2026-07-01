@@ -18,9 +18,9 @@ test_that("tabular_rln() only supports regression mode", {
   spec <- tabular_rln(mode = "regression")
   expect_equal(spec$mode, "regression")
 
-  expect_error(
-    tabular_rln(mode = "classification") |> parsnip::set_engine("brulee"),
-    regexp = "classification"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(mode = "classification") |> parsnip::set_engine("brulee")
   )
 })
 
@@ -48,23 +48,23 @@ test_that("check_args.tabular_rln() passes valid arguments", {
 })
 
 test_that("check_args.tabular_rln() rejects invalid penalty_type", {
-  expect_error(
-    tabular_rln(penalty_type = "L3") |> parsnip::check_args(),
-    regexp = "penalty_type"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(penalty_type = "L3") |> parsnip::check_args()
   )
 })
 
 test_that("check_args.tabular_rln() rejects negative penalty_average", {
-  expect_error(
-    tabular_rln(penalty_average = -1) |> parsnip::check_args(),
-    regexp = "penalty_average"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(penalty_average = -1) |> parsnip::check_args()
   )
 })
 
 test_that("check_args.tabular_rln() rejects negative step_rate", {
-  expect_error(
-    tabular_rln(step_rate = -1) |> parsnip::check_args(),
-    regexp = "step_rate"
+  expect_snapshot(
+    error = TRUE,
+    tabular_rln(step_rate = -1) |> parsnip::check_args()
   )
 })
 
@@ -74,6 +74,9 @@ test_that("required_pkgs.tabular_rln() returns expected packages", {
 })
 
 test_that("tabular_rln() is registered with parsnip", {
+  reregister_model("tabular_rln")
+  expect_no_error(make_tabular_rln())
+
   engines <- parsnip::show_engines("tabular_rln")
   expect_true("brulee" %in% engines$engine)
   expect_true(all(engines$mode == "regression"))
@@ -85,7 +88,7 @@ test_that("tabular_rln() fits and predicts with brulee engine", {
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(193044)
   spec <- tabular_rln(hidden_units = 3L, epochs = 5L) |>
     parsnip::set_engine("brulee")
 
@@ -107,7 +110,7 @@ test_that("multi_predict._brulee_rln() returns predictions at multiple epochs", 
   skip_if_not(torch::torch_is_installed())
   skip_on_cran()
 
-  set.seed(1)
+  set.seed(403479)
   spec <- tabular_rln(hidden_units = 3L, epochs = 10L) |>
     parsnip::set_engine("brulee")
   fit <- parsnip::fit(spec, mpg ~ ., data = mtcars)
@@ -121,4 +124,9 @@ test_that("multi_predict._brulee_rln() returns predictions at multiple epochs", 
   expect_true(all(c("epochs", ".pred") %in% names(inner)))
   expect_equal(nrow(inner), 2)
   expect_equal(inner$epochs, c(3L, 7L))
+
+  # epochs = NULL defaults to the final fitted epoch
+  mp_default <- parsnip::multi_predict(fit, mtcars[1:2, ])
+  expect_equal(nrow(mp_default), 2)
+  expect_equal(nrow(mp_default$.pred[[1]]), 1)
 })
