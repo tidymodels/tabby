@@ -14,9 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      NOT_CRAN: true                               # run skip_on_cran() integration tests
+      TORCH_INSTALL: 1                             # auto-download the torch backend if missing
+      TORCH_HOME: ${{ github.workspace }}/.torch   # persistent, cacheable backend location
 
     steps:
       - uses: actions/checkout@v6
+
+      - name: Cache torch backend
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.torch
+          key: torch-${{ runner.os }}-v1
+          restore-keys: torch-${{ runner.os }}-
 
       - uses: r-lib/actions/setup-r@v2
 
@@ -24,6 +34,16 @@ jobs:
         with:
           extra-packages: any::covr, any::xml2
           needs: coverage
+
+      - name: Install torch backend
+        run: |
+          options(timeout = 600)
+          home <- Sys.getenv("TORCH_HOME")
+          dir.create(home, recursive = TRUE, showWarnings = FALSE)
+          cat("TORCH_HOME:", home, "| exists:", dir.exists(home),
+              "| writable:", file.access(home, 2) >= 0, "\n")
+          if (!torch::torch_is_installed()) torch::install_torch()
+        shell: Rscript {0}
 
       - name: Test coverage
         run: |

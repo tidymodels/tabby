@@ -29,6 +29,9 @@ test_that("required_pkgs.tabular_chronos() returns expected packages", {
 })
 
 test_that("tabular_chronos() is registered for both modes", {
+  reregister_model("tabular_chronos")
+  expect_no_error(make_tabular_chronos())
+
   engines <- parsnip::show_engines("tabular_chronos")
   expect_true("brulee" %in% engines$engine)
   expect_setequal(engines$mode, c("quantile regression", "regression"))
@@ -61,8 +64,7 @@ test_that("tabular_chronos() fits and forecasts in quantile regression mode", {
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "date",
-      prediction_length = 14L
+      timestamp_column = "date"
     ) |>
     parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10)
 
@@ -74,7 +76,7 @@ test_that("tabular_chronos() fits and forecasts in quantile regression mode", {
   expect_s3_class(preds, "tbl_df")
   expect_named(preds, ".pred_quantile")
   expect_s3_class(preds$.pred_quantile, "quantile_pred")
-  expect_equal(nrow(preds), 14L)
+  expect_equal(nrow(preds), nrow(Chi))
 })
 
 test_that("tabular_chronos() forecasts the median in regression mode", {
@@ -91,8 +93,7 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "date",
-      prediction_length = 14L
+      timestamp_column = "date"
     ) |>
     parsnip::set_mode("regression")
 
@@ -103,7 +104,7 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
   expect_s3_class(preds, "tbl_df")
   expect_named(preds, ".pred")
   expect_true(is.numeric(preds$.pred))
-  expect_equal(nrow(preds), 14L)
+  expect_equal(nrow(preds), nrow(Chi))
   # Guard against the column extraction / median collapsing to a constant: the
   # deterministic stub varies the forecast by horizon step, so .pred must be
   # non-constant.
@@ -118,7 +119,7 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
 
   stub_chronos_loaders(also_mock_predict_core = TRUE)
 
-  set.seed(1)
+  set.seed(656377)
   n <- 30L
   multi <- data.frame(
     series_id = rep(c("A", "B"), each = n),
@@ -131,8 +132,7 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "idx",
-      prediction_length = 5L
+      timestamp_column = "idx"
     )
 
   # Both prediction types route through chronos_single_series(): regression mode
@@ -140,10 +140,33 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
   reg_fit <- base_spec |>
     parsnip::set_mode("regression") |>
     parsnip::fit(y ~ cov1, data = multi)
-  expect_error(predict(reg_fit, multi), regexp = "single series")
+  expect_snapshot(error = TRUE, predict(reg_fit, multi))
 
   qr_fit <- base_spec |>
     parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
     parsnip::fit(y ~ cov1, data = multi)
-  expect_error(predict(qr_fit, multi), regexp = "single series")
+  expect_snapshot(error = TRUE, predict(qr_fit, multi))
+})
+
+test_that("tabular_chronos() forecast length restiction", {
+  skip_on_cran()
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_if_not_installed("modeldata")
+
+  stub_chronos_loaders(also_mock_predict_core = TRUE)
+  Chi <- chicago_subset()
+
+  spec <- tabular_chronos() |>
+    parsnip::set_engine(
+      "brulee",
+      id_column = "series_id",
+      timestamp_column = "date",
+      prediction_length = 2L
+    ) |>
+    parsnip::set_mode("regression")
+
+  fit <- parsnip::fit(spec, ridership ~ Clark_Lake + Austin, data = Chi)
+  expect_snapshot(predict(fit, Chi), error = TRUE)
 })

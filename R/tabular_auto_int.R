@@ -290,7 +290,7 @@ multi_predict._brulee_auto_int <-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs)) {
-      epochs <- length(object$fit$estimates)
+      epochs <- length(object$fit$estimates) - 1L
     }
 
     epochs <- sort(epochs)
@@ -306,7 +306,7 @@ multi_predict._brulee_auto_int <-
     res <-
       purrr::map(
         epochs,
-        ~ predict(object, new_data, type, epoch = .x) |>
+        ~ predict(object$fit, new_data, type = type, epoch = .x) |>
           dplyr::mutate(epochs = .x)
       ) |>
       purrr::map(\(x) x |> dplyr::mutate(.row = seq_len(nrow(new_data)))) |>
