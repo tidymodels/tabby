@@ -64,8 +64,7 @@ test_that("tabular_chronos() fits and forecasts in quantile regression mode", {
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "date",
-      prediction_length = 14L
+      timestamp_column = "date"
     ) |>
     parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10)
 
@@ -77,7 +76,7 @@ test_that("tabular_chronos() fits and forecasts in quantile regression mode", {
   expect_s3_class(preds, "tbl_df")
   expect_named(preds, ".pred_quantile")
   expect_s3_class(preds$.pred_quantile, "quantile_pred")
-  expect_equal(nrow(preds), 14L)
+  expect_equal(nrow(preds), nrow(Chi))
 })
 
 test_that("tabular_chronos() forecasts the median in regression mode", {
@@ -94,8 +93,7 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "date",
-      prediction_length = 14L
+      timestamp_column = "date"
     ) |>
     parsnip::set_mode("regression")
 
@@ -106,7 +104,7 @@ test_that("tabular_chronos() forecasts the median in regression mode", {
   expect_s3_class(preds, "tbl_df")
   expect_named(preds, ".pred")
   expect_true(is.numeric(preds$.pred))
-  expect_equal(nrow(preds), 14L)
+  expect_equal(nrow(preds), nrow(Chi))
   # Guard against the column extraction / median collapsing to a constant: the
   # deterministic stub varies the forecast by horizon step, so .pred must be
   # non-constant.
@@ -134,8 +132,7 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
     parsnip::set_engine(
       "brulee",
       id_column = "series_id",
-      timestamp_column = "idx",
-      prediction_length = 5L
+      timestamp_column = "idx"
     )
 
   # Both prediction types route through chronos_single_series(): regression mode
@@ -149,4 +146,27 @@ test_that("tabular_chronos() errors on multiple series via the parsnip interface
     parsnip::set_mode("quantile regression", quantile_levels = (1:9) / 10) |>
     parsnip::fit(y ~ cov1, data = multi)
   expect_snapshot(error = TRUE, predict(qr_fit, multi))
+})
+
+test_that("tabular_chronos() forecast length restiction", {
+  skip_on_cran()
+  skip_if_not_installed("brulee")
+  skip_if_not_installed("torch")
+  skip_if_not(torch::torch_is_installed())
+  skip_if_not_installed("modeldata")
+
+  stub_chronos_loaders(also_mock_predict_core = TRUE)
+  Chi <- chicago_subset()
+
+  spec <- tabular_chronos() |>
+    parsnip::set_engine(
+      "brulee",
+      id_column = "series_id",
+      timestamp_column = "date",
+      prediction_length = 2L
+    ) |>
+    parsnip::set_mode("regression")
+
+  fit <- parsnip::fit(spec, ridership ~ Clark_Lake + Austin, data = Chi)
+  expect_snapshot(predict(fit, Chi), error = TRUE)
 })

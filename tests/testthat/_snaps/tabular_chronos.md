@@ -18,3 +18,11 @@
       i Multiple series were detected (id column "series_id").
       i For multi-series forecasting, use `brulee::brulee_chronos()` directly.
 
+# tabular_chronos() forecast length restiction
+
+    Code
+      predict(fit, Chi)
+    Condition
+      Error in `predict()`:
+      ! Series "L": `new_data` has 200 rows, more than the prediction length (2).
+
