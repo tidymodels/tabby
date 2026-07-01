@@ -166,16 +166,6 @@ required_pkgs.tabular_pfn <- function(x, infra = TRUE, ...) {
 
 # ------------------------------------------------------------------------------
 
-class_only <- function(x, object) {
-  x[[".pred_class"]]
-}
-
-prob_only <- function(x, object) {
-  x[, object$fit$levels]
-}
-
-# ------------------------------------------------------------------------------
-
 make_tabular_pfn <- function() {
   parsnip::set_new_model("tabular_pfn")
   parsnip::set_model_mode("tabular_pfn", mode = "classification")

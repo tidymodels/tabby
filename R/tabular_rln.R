@@ -94,7 +94,6 @@ tabular_rln <-
 #' @method update tabular_rln
 #' @rdname tabular_update
 #' @inheritParams tabular_rln
-#' @inheritParams update.tab_resnet
 #' @export
 update.tabular_rln <-
   function(
@@ -189,7 +188,7 @@ multi_predict._brulee_rln <-
     load_libs(object, quiet = TRUE, attach = TRUE)
 
     if (is.null(epochs)) {
-      epochs <- length(object$fit$estimates)
+      epochs <- length(object$fit$estimates) - 1L
     }
 
     epochs <- sort(epochs)
