@@ -54,12 +54,18 @@
   parameters = NULL,
   hidden_units = NULL,
   bottleneck_units = NULL,
-  resid_at = NULL,
+  residual_at = NULL,
   penalty = NULL,
+  mixture = NULL,
   dropout = NULL,
   epochs = NULL,
   activation = NULL,
   learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL,
   fresh = FALSE,
   ...
 )
@@ -77,6 +83,7 @@
   rate_schedule = NULL,
   momentum = NULL,
   batch_size = NULL,
+  stop_iter = NULL,
   fresh = FALSE,
   ...
 )
@@ -201,7 +208,7 @@ function or after? Default is \code{FALSE}.}
 \item{bottleneck_units}{The number of embeddings that are produced by batch
 normalization.}
 
-\item{resid_at}{An integer vector with the layer number should use a
+\item{residual_at}{An integer vector with the layer number should use a
 residual connection (i.e., skip layer).}
 
 \item{penalty_type}{A string for the regularization norm: \code{"L1"} (default
