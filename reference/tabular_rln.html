@@ -66,7 +66,8 @@ fit regression models only.</p>
 <span>  learn_rate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rate_schedule <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  momentum <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  batch_size <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  stop_iter <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -132,6 +133,11 @@ parameter used by the optimizer.</p></dd>
 <dt id="arg-batch-size">batch_size<a class="anchor" aria-label="anchor" href="#arg-batch-size"></a></dt>
 <dd><p>An integer for the number of training samples used per
 gradient update step.</p></dd>
+
+
+<dt id="arg-stop-iter">stop_iter<a class="anchor" aria-label="anchor" href="#arg-stop-iter"></a></dt>
+<dd><p>A non-negative integer for the number of iterations without
+improvement before stopping training early.</p></dd>
 
 </dl></div>
     <div id="references">
