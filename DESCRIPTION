@@ -14,7 +14,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    dials (>= 1.4.3.9000),
+    dials (>= 1.4.4),
     dplyr,
     generics,
     hardhat,
@@ -22,14 +22,14 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.0),
+    brulee (>= 1.0.0.9001),
     modeldata,
     spelling,
     testthat (>= 3.0.0),
     torch,
     withr
 Remotes:
-    tidymodels/dials
+    tidymodels/brulee
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
