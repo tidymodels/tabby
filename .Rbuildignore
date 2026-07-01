@@ -11,3 +11,4 @@
 ^[.]?air[.]toml$
 ^\.vscode$
 ^\.roborev$
+^plans$

@@ -16,7 +16,8 @@ tabular_rln(
   learn_rate = NULL,
   rate_schedule = NULL,
   momentum = NULL,
-  batch_size = NULL
+  batch_size = NULL,
+  stop_iter = NULL
 )
 }
 \arguments{
@@ -55,6 +56,9 @@ parameter used by the optimizer.}
 
 \item{batch_size}{An integer for the number of training samples used per
 gradient update step.}
+
+\item{stop_iter}{A non-negative integer for the number of iterations without
+improvement before stopping training early.}
 }
 \description{
 \code{tabular_rln()} defines a single-hidden-layer neural network where each

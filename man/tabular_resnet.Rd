@@ -9,12 +9,18 @@ tabular_resnet(
   engine = "brulee",
   hidden_units = NULL,
   bottleneck_units = NULL,
-  resid_at = NULL,
+  residual_at = NULL,
   penalty = NULL,
+  mixture = NULL,
   dropout = NULL,
   epochs = NULL,
   activation = NULL,
-  learn_rate = NULL
+  learn_rate = NULL,
+  rate_schedule = NULL,
+  momentum = NULL,
+  batch_size = NULL,
+  class_weights = NULL,
+  stop_iter = NULL
 )
 }
 \arguments{
@@ -31,11 +37,16 @@ model.}
 \item{bottleneck_units}{The number of embeddings that are produced by batch
 normalization.}
 
-\item{resid_at}{An integer vector with the layer number should use a
+\item{residual_at}{An integer vector with the layer number should use a
 residual connection (i.e., skip layer).}
 
 \item{penalty}{A non-negative numeric value for the amount of weight
 decay.}
+
+\item{mixture}{A number between zero and one (inclusive) giving the
+proportion of L1 regularization (i.e. lasso) in the model. \code{mixture = 1}
+is a pure lasso model while \code{mixture = 0} indicates ridge regression
+(a.k.a weight decay).}
 
 \item{dropout}{A number between 0 (inclusive) and 1 denoting the proportion
 of model parameters randomly set to zero during model training.}
@@ -51,6 +62,19 @@ depend on the engine being used.}
 \item{learn_rate}{A number for the rate at which the boosting algorithm adapts
 from iteration-to-iteration (specific engines only). This is sometimes referred to
 as the shrinkage parameter.}
+
+\item{rate_schedule}{A character string for the learning rate schedule.}
+
+\item{momentum}{A number for the momentum parameter in optimizers that use it.}
+
+\item{batch_size}{An integer for the number of training instances in each
+batch.}
+
+\item{class_weights}{Numeric class weights for imbalanced data
+(classification only).}
+
+\item{stop_iter}{The number of iterations without improvement before
+stopping (specific engines only).}
 }
 \description{
 \code{tabular_resnet()} ... This function can fit classification and
