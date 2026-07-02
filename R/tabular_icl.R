@@ -34,7 +34,7 @@
 #'
 #' [https://github.com/soda-inria/tabicl](https://github.com/soda-inria/tabicl)
 #'
-#' Qu, J., HolzmÃžller, D., Varoquaux, G., & Morvan, M. L. (2025). Tabicl: A
+#' Qu, J., Holzmüller, D., Varoquaux, G., & Morvan, M. L. (2025). Tabicl: A
 #' tabular foundation model for in-context learning on large data. arXiv
 #' preprint arXiv:2502.05564.
 #'
@@ -129,7 +129,7 @@ check_args.tabular_icl <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_icl <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 # ------------------------------------------------------------------------------

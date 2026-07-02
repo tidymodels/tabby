@@ -49,7 +49,7 @@ tabular_icl()
 \references{
 \url{https://github.com/soda-inria/tabicl}
 
-Qu, J., HolzmÃžller, D., Varoquaux, G., & Morvan, M. L. (2025). Tabicl: A
+Qu, J., Holzmüller, D., Varoquaux, G., & Morvan, M. L. (2025). Tabicl: A
 tabular foundation model for in-context learning on large data. arXiv
 preprint arXiv:2502.05564.
 

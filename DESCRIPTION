@@ -23,14 +23,12 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.0.9001),
+    brulee (>= 1.1.0),
     modeldata,
     spelling,
     testthat (>= 3.0.0),
     torch,
     withr
-Remotes:
-    tidymodels/brulee
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
