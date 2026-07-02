@@ -34,6 +34,8 @@
 #'   parameter used by the optimizer.
 #' @param batch_size An integer for the number of training samples used per
 #'   gradient update step.
+#' @param stop_iter A non-negative integer for the number of iterations without
+#'   improvement before stopping training early.
 #'
 #' @templateVar modeltype tabular_rln
 #'
@@ -62,7 +64,8 @@ tabular_rln <-
     learn_rate = NULL,
     rate_schedule = NULL,
     momentum = NULL,
-    batch_size = NULL
+    batch_size = NULL,
+    stop_iter = NULL
   ) {
     args <- list(
       hidden_units = enquo(hidden_units),
@@ -74,7 +77,8 @@ tabular_rln <-
       learn_rate = enquo(learn_rate),
       rate_schedule = enquo(rate_schedule),
       momentum = enquo(momentum),
-      batch_size = enquo(batch_size)
+      batch_size = enquo(batch_size),
+      stop_iter = enquo(stop_iter)
     )
 
     parsnip::new_model_spec(
@@ -109,6 +113,7 @@ update.tabular_rln <-
     rate_schedule = NULL,
     momentum = NULL,
     batch_size = NULL,
+    stop_iter = NULL,
     fresh = FALSE,
     ...
   ) {
@@ -122,7 +127,8 @@ update.tabular_rln <-
       learn_rate = enquo(learn_rate),
       rate_schedule = enquo(rate_schedule),
       momentum = enquo(momentum),
-      batch_size = enquo(batch_size)
+      batch_size = enquo(batch_size),
+      stop_iter = enquo(stop_iter)
     )
 
     parsnip::update_spec(
@@ -171,7 +177,7 @@ check_args.tabular_rln <- function(object, call = rlang::caller_env()) {
 #' @method required_pkgs tabular_rln
 #' @export
 required_pkgs.tabular_rln <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 # ------------------------------------------------------------------------------
@@ -316,6 +322,15 @@ make_tabular_rln <- function() {
     parsnip = "batch_size",
     original = "batch_size",
     func = list(pkg = "dials", fun = "batch_size", range = c(4, 7)),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_rln",
+    eng = "brulee",
+    parsnip = "stop_iter",
+    original = "stop_iter",
+    func = list(pkg = "dials", fun = "stop_iter"),
     has_submodel = FALSE
   )
 

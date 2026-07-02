@@ -161,7 +161,7 @@ check_args.tabular_pfn <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_pfn <- function(x, infra = TRUE, ...) {
-  c("tabpfn", "tabular")
+  c("tabpfn", "tabby")
 }
 
 # ------------------------------------------------------------------------------

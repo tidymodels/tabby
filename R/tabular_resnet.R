@@ -10,14 +10,20 @@
 #' \url{https://www.tidymodels.org/}.
 #'
 #' @inheritParams parsnip::mlp
+#' @inheritParams parsnip::linear_reg
+#' @inheritParams parsnip::boost_tree
 #' @param hidden_units An integer vector for the number of units in the hidden
 #' model.
 #' @param bottleneck_units The number of embeddings that are produced by batch
 #' normalization.
-#' @param resid_at An integer vector with the layer number should use a
+#' @param residual_at An integer vector with the layer number should use a
 #' residual connection (i.e., skip layer).
 #' @param penalty A non-negative numeric value for the amount of weight
 #'  decay.
+#' @param mixture A number between zero and one (inclusive) giving the
+#'  proportion of L1 regularization (i.e. lasso) in the model. `mixture = 1`
+#'  is a pure lasso model while `mixture = 0` indicates ridge regression
+#'  (a.k.a weight decay).
 #' @param dropout A number between 0 (inclusive) and 1 denoting the proportion
 #'  of model parameters randomly set to zero during model training.
 #' @param epochs An integer for the number of training iterations.
@@ -26,6 +32,12 @@
 #'  function between the hidden and output layers is automatically set to either
 #'  "linear" or "softmax" depending on the type of outcome. Possible values
 #'  depend on the engine being used.
+#' @param rate_schedule A character string for the learning rate schedule.
+#' @param momentum A number for the momentum parameter in optimizers that use it.
+#' @param batch_size An integer for the number of training instances in each
+#'  batch.
+#' @param class_weights Numeric class weights for imbalanced data
+#'  (classification only).
 #'
 #' @templateVar modeltype tabular_resnet
 # @template spec-details
@@ -46,22 +58,34 @@ tabular_resnet <-
     engine = "brulee",
     hidden_units = NULL,
     bottleneck_units = NULL,
-    resid_at = NULL,
+    residual_at = NULL,
     penalty = NULL,
+    mixture = NULL,
     dropout = NULL,
     epochs = NULL,
     activation = NULL,
-    learn_rate = NULL
+    learn_rate = NULL,
+    rate_schedule = NULL,
+    momentum = NULL,
+    batch_size = NULL,
+    class_weights = NULL,
+    stop_iter = NULL
   ) {
     args <- list(
       hidden_units = enquo(hidden_units),
       bottleneck_units = enquo(bottleneck_units),
-      resid_at = enquo(resid_at),
+      residual_at = enquo(residual_at),
       penalty = enquo(penalty),
+      mixture = enquo(mixture),
       dropout = enquo(dropout),
       epochs = enquo(epochs),
       activation = enquo(activation),
-      learn_rate = enquo(learn_rate)
+      learn_rate = enquo(learn_rate),
+      rate_schedule = enquo(rate_schedule),
+      momentum = enquo(momentum),
+      batch_size = enquo(batch_size),
+      class_weights = enquo(class_weights),
+      stop_iter = enquo(stop_iter)
     )
 
     parsnip::new_model_spec(
@@ -98,24 +122,36 @@ update.tabular_resnet <-
     parameters = NULL,
     hidden_units = NULL,
     bottleneck_units = NULL,
-    resid_at = NULL,
+    residual_at = NULL,
     penalty = NULL,
+    mixture = NULL,
     dropout = NULL,
     epochs = NULL,
     activation = NULL,
     learn_rate = NULL,
+    rate_schedule = NULL,
+    momentum = NULL,
+    batch_size = NULL,
+    class_weights = NULL,
+    stop_iter = NULL,
     fresh = FALSE,
     ...
   ) {
     args <- list(
       hidden_units = enquo(hidden_units),
       bottleneck_units = enquo(bottleneck_units),
-      resid_at = enquo(resid_at),
+      residual_at = enquo(residual_at),
       penalty = enquo(penalty),
+      mixture = enquo(mixture),
       dropout = enquo(dropout),
       epochs = enquo(epochs),
       activation = enquo(activation),
-      learn_rate = enquo(learn_rate)
+      learn_rate = enquo(learn_rate),
+      rate_schedule = enquo(rate_schedule),
+      momentum = enquo(momentum),
+      batch_size = enquo(batch_size),
+      class_weights = enquo(class_weights),
+      stop_iter = enquo(stop_iter)
     )
 
     parsnip::update_spec(
@@ -142,12 +178,27 @@ check_args.tabular_resnet <- function(object, call = rlang::caller_env()) {
     arg = "penalty"
   )
   check_number_decimal(
+    args$mixture,
+    min = 0,
+    max = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "mixture"
+  )
+  check_number_decimal(
     args$dropout,
     min = 0,
     max = 1,
     allow_null = TRUE,
     call = call,
     arg = "dropout"
+  )
+  check_number_whole(
+    args$stop_iter,
+    min = 1,
+    allow_null = TRUE,
+    call = call,
+    arg = "stop_iter"
   )
 
   if (
@@ -167,7 +218,7 @@ check_args.tabular_resnet <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_resnet <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 ## -----------------------------------------------------------------------------
@@ -276,7 +327,7 @@ make_tabular_resnet <- function() {
   parsnip::set_model_arg(
     model = "tabular_resnet",
     eng = "brulee",
-    parsnip = "resid_at",
+    parsnip = "residual_at",
     original = "residual_at",
     func = list(pkg = "dials", fun = "resid_at"),
     has_submodel = FALSE
@@ -288,6 +339,15 @@ make_tabular_resnet <- function() {
     parsnip = "penalty",
     original = "penalty",
     func = list(pkg = "dials", fun = "penalty"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_resnet",
+    eng = "brulee",
+    parsnip = "mixture",
+    original = "mixture",
+    func = list(pkg = "dials", fun = "mixture"),
     has_submodel = FALSE
   )
 
@@ -366,6 +426,24 @@ make_tabular_resnet <- function() {
       fun = "batch_size",
       range = c(4, 7)
     ),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_resnet",
+    eng = "brulee",
+    parsnip = "class_weights",
+    original = "class_weights",
+    func = list(pkg = "dials", fun = "class_weights"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_resnet",
+    eng = "brulee",
+    parsnip = "stop_iter",
+    original = "stop_iter",
+    func = list(pkg = "dials", fun = "stop_iter"),
     has_submodel = FALSE
   )
 

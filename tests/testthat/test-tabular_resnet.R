@@ -81,7 +81,7 @@ test_that("check_args.tabular_resnet() rejects both penalty and dropout", {
 
 test_that("required_pkgs.tabular_resnet() returns expected packages", {
   spec <- tabular_resnet()
-  expect_equal(required_pkgs(spec), c("brulee", "tabular"))
+  expect_equal(required_pkgs(spec), c("brulee", "tabby"))
 })
 
 # ------------------------------------------------------------------------------

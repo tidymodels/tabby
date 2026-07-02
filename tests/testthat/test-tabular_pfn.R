@@ -90,5 +90,5 @@ test_that("check_args.tabular_pfn() validates average_before_softmax", {
 
 test_that("required_pkgs.tabular_pfn() returns expected packages", {
   spec <- tabular_pfn()
-  expect_equal(required_pkgs(spec), c("tabpfn", "tabular"))
+  expect_equal(required_pkgs(spec), c("tabpfn", "tabby"))
 })
