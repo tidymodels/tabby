@@ -302,7 +302,7 @@ check_args.tabular_saint <- function(object, call = rlang::caller_env()) {
 #' @method required_pkgs tabular_saint
 #' @export
 required_pkgs.tabular_saint <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 # ------------------------------------------------------------------------------

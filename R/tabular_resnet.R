@@ -218,7 +218,7 @@ check_args.tabular_resnet <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_resnet <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 ## -----------------------------------------------------------------------------

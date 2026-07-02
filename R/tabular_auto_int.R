@@ -275,7 +275,7 @@ check_args.tabular_auto_int <- function(object, call = rlang::caller_env()) {
 
 #' @export
 required_pkgs.tabular_auto_int <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 ## -----------------------------------------------------------------------------

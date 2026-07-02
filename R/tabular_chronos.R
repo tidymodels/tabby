@@ -109,7 +109,7 @@ check_args.tabular_chronos <- function(object, call = rlang::caller_env()) {
 #' @method required_pkgs tabular_chronos
 #' @export
 required_pkgs.tabular_chronos <- function(x, infra = TRUE, ...) {
-  c("brulee", "tabular")
+  c("brulee", "tabby")
 }
 
 # ------------------------------------------------------------------------------
