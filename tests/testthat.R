@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(tabular)
+library(tabby)
 
-test_check("tabular")
+test_check("tabby")

@@ -25,7 +25,7 @@ test_that("update.tabular_chronos() returns a spec", {
 })
 
 test_that("required_pkgs.tabular_chronos() returns expected packages", {
-  expect_equal(required_pkgs(tabular_chronos()), c("brulee", "tabular"))
+  expect_equal(required_pkgs(tabular_chronos()), c("brulee", "tabby"))
 })
 
 test_that("tabular_chronos() is registered for both modes", {
