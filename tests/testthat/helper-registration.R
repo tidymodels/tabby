@@ -1,12 +1,19 @@
-# Remove a model's registration from parsnip's model environment so that the
-# corresponding `make_*()` function can be called again. parsnip registers
-# these models in `.onLoad()`, which covr does not attribute to any test;
-# clearing and re-running registration lets coverage reflect the registration
-# code honestly.
+# Reset the engine-level registrations that tabby's `make_*()` functions add to
+# parsnip's model environment so that `make_*()` can be called again. The base
+# model (its `models` list entry and its modes) is registered by parsnip itself,
+# so it is left intact; only the engine, argument, fit, encoding, prediction,
+# and dependency tables that tabby populates are cleared. tabby runs `make_*()`
+# in `.onLoad()`, which covr does not attribute to any test; clearing and
+# re-running registration lets coverage reflect the registration code honestly.
 reregister_model <- function(model) {
   e <- parsnip::get_model_env()
-  nms <- grep(paste0("^", model, "($|_)"), rlang::env_names(e), value = TRUE)
-  rlang::env_poke(e, "models", setdiff(rlang::env_get(e, "models"), model))
-  rlang::env_unbind(e, nms)
+  tables <- c(
+    model,
+    paste0(model, c("_args", "_fit", "_encoding", "_predict", "_pkgs"))
+  )
+  for (nm in intersect(tables, rlang::env_names(e))) {
+    tbl <- rlang::env_get(e, nm)
+    rlang::env_poke(e, nm, tbl[0, , drop = FALSE])
+  }
   invisible(NULL)
 }
