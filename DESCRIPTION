@@ -30,7 +30,8 @@ Suggests:
     torch,
     withr
 Remotes:
-    tidymodels/brulee
+    tidymodels/brulee,
+    tidymodels/parsnip#1386
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
