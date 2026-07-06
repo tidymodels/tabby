@@ -80,7 +80,19 @@ make_tabular_resnet <- function() {
   parsnip::set_dependency(
     "tabular_resnet",
     eng = "brulee",
+    pkg = "tabby",
+    mode = "classification"
+  )
+  parsnip::set_dependency(
+    "tabular_resnet",
+    eng = "brulee",
     pkg = "brulee",
+    mode = "regression"
+  )
+  parsnip::set_dependency(
+    "tabular_resnet",
+    eng = "brulee",
+    pkg = "tabby",
     mode = "regression"
   )
 

@@ -31,6 +31,18 @@ make_tabular_saint <- function() {
     pkg = "brulee",
     mode = "regression"
   )
+  parsnip::set_dependency(
+    "tabular_saint",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "classification"
+  )
+  parsnip::set_dependency(
+    "tabular_saint",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "regression"
+  )
 
   # ---------------------------------------------------------------------------
   # Model arguments

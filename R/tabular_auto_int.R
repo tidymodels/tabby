@@ -66,7 +66,19 @@ make_tabular_auto_int <- function() {
   parsnip::set_dependency(
     "tabular_auto_int",
     eng = "brulee",
+    pkg = "tabby",
+    mode = "classification"
+  )
+  parsnip::set_dependency(
+    "tabular_auto_int",
+    eng = "brulee",
     pkg = "brulee",
+    mode = "regression"
+  )
+  parsnip::set_dependency(
+    "tabular_auto_int",
+    eng = "brulee",
+    pkg = "tabby",
     mode = "regression"
   )
 

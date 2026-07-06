@@ -12,6 +12,7 @@ make_tabular_pfn <- function() {
     eng = "tabpfn"
   )
   parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabpfn")
+  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabby")
 
   parsnip::set_fit(
     model = "tabular_pfn",
@@ -111,6 +112,7 @@ make_tabular_pfn <- function() {
 
   parsnip::set_model_engine("tabular_pfn", mode = "regression", eng = "tabpfn")
   parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabpfn")
+  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabby")
 
   parsnip::set_fit(
     model = "tabular_pfn",

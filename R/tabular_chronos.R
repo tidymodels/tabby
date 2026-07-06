@@ -52,6 +52,12 @@ make_tabular_chronos <- function() {
     pkg = "brulee",
     mode = "quantile regression"
   )
+  parsnip::set_dependency(
+    "tabular_chronos",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "quantile regression"
+  )
 
   parsnip::set_fit(
     model = "tabular_chronos",
@@ -107,6 +113,12 @@ make_tabular_chronos <- function() {
     "tabular_chronos",
     eng = "brulee",
     pkg = "brulee",
+    mode = "regression"
+  )
+  parsnip::set_dependency(
+    "tabular_chronos",
+    eng = "brulee",
+    pkg = "tabby",
     mode = "regression"
   )
 

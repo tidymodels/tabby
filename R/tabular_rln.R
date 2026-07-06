@@ -51,6 +51,12 @@ make_tabular_rln <- function() {
     pkg = "brulee",
     mode = "regression"
   )
+  parsnip::set_dependency(
+    "tabular_rln",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "regression"
+  )
 
   parsnip::set_model_arg(
     model = "tabular_rln",
