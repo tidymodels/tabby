@@ -11,7 +11,7 @@ Description: 'parsnip' model functions for tabular deep learning models,
     including TabPFN, ResNet, and others.
 License: MIT + file LICENSE
 Depends:
-    parsnip,
+    parsnip (>= 1.6.0.9000),
     R (>= 4.1.0)
 Imports:
     cli,
@@ -29,6 +29,8 @@ Suggests:
     testthat (>= 3.0.0),
     torch,
     withr
+Remotes:
+    tidymodels/parsnip
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
