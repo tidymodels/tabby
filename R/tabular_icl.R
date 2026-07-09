@@ -11,8 +11,18 @@ make_tabular_icl <- function() {
     mode = "classification",
     eng = "brulee"
   )
-  parsnip::set_dependency("tabular_icl", eng = "brulee", pkg = "brulee")
-  parsnip::set_dependency("tabular_icl", eng = "brulee", pkg = "tabby")
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "brulee",
+    mode = "classification"
+  )
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "classification"
+  )
 
   parsnip::set_fit(
     model = "tabular_icl",
@@ -93,8 +103,18 @@ make_tabular_icl <- function() {
   # ----------------------------------------------------------------------------
 
   parsnip::set_model_engine("tabular_icl", mode = "regression", eng = "brulee")
-  parsnip::set_dependency("tabular_icl", eng = "brulee", pkg = "brulee")
-  parsnip::set_dependency("tabular_icl", eng = "brulee", pkg = "tabby")
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "brulee",
+    mode = "regression"
+  )
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "regression"
+  )
 
   parsnip::set_fit(
     model = "tabular_icl",
