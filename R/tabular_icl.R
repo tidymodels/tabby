@@ -1,34 +1,44 @@
 #' @export
-required_pkgs.tabular_pfn <- function(x, infra = TRUE, ...) {
-  c("tabpfn", "tabby")
+required_pkgs.tabular_icl <- function(x, infra = TRUE, ...) {
+  c("brulee", "tabby")
 }
 
 # ------------------------------------------------------------------------------
 
-make_tabular_pfn <- function() {
+make_tabular_icl <- function() {
   parsnip::set_model_engine(
-    "tabular_pfn",
+    "tabular_icl",
     mode = "classification",
-    eng = "tabpfn"
+    eng = "brulee"
   )
-  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabpfn")
-  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabby")
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "brulee",
+    mode = "classification"
+  )
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "classification"
+  )
 
   parsnip::set_fit(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "classification",
     value = list(
       interface = "formula",
       protect = c("formula", "data"),
-      func = c(pkg = "tabpfn", fun = "tab_pfn"),
+      func = c(pkg = "brulee", fun = "brulee_tab_icl"),
       defaults = list()
     )
   )
 
   parsnip::set_encoding(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "classification",
     options = list(
       predictor_indicators = "none",
@@ -39,8 +49,8 @@ make_tabular_pfn <- function() {
   )
 
   parsnip::set_pred(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "classification",
     type = "class",
     value = list(
@@ -56,8 +66,8 @@ make_tabular_pfn <- function() {
   )
 
   parsnip::set_pred(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "classification",
     type = "prob",
     value = list(
@@ -73,8 +83,8 @@ make_tabular_pfn <- function() {
   )
 
   parsnip::set_model_arg(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     parsnip = "num_estimators",
     original = "num_estimators",
     func = list(pkg = "dials", fun = "num_estimators"),
@@ -82,53 +92,45 @@ make_tabular_pfn <- function() {
   )
 
   parsnip::set_model_arg(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     parsnip = "softmax_temperature",
     original = "softmax_temperature",
     func = list(pkg = "dials", fun = "softmax_temperature"),
     has_submodel = FALSE
   )
 
-  parsnip::set_model_arg(
-    model = "tabular_pfn",
-    eng = "tabpfn",
-    parsnip = "balance_probabilities",
-    original = "balance_probabilities",
-    func = list(pkg = "dials", fun = "balance_probabilities"),
-    has_submodel = FALSE
+  # ----------------------------------------------------------------------------
+
+  parsnip::set_model_engine("tabular_icl", mode = "regression", eng = "brulee")
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "brulee",
+    mode = "regression"
   )
-
-  parsnip::set_model_arg(
-    model = "tabular_pfn",
-    eng = "tabpfn",
-    parsnip = "average_before_softmax",
-    original = "average_before_softmax",
-    func = list(pkg = "dials", fun = "average_before_softmax"),
-    has_submodel = FALSE
+  parsnip::set_dependency(
+    "tabular_icl",
+    eng = "brulee",
+    pkg = "tabby",
+    mode = "regression"
   )
-
-  # ------------------------------------------------------------------------------
-
-  parsnip::set_model_engine("tabular_pfn", mode = "regression", eng = "tabpfn")
-  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabpfn")
-  parsnip::set_dependency("tabular_pfn", eng = "tabpfn", pkg = "tabby")
 
   parsnip::set_fit(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "regression",
     value = list(
       interface = "formula",
       protect = c("formula", "data"),
-      func = c(pkg = "tabpfn", fun = "tab_pfn"),
+      func = c(pkg = "brulee", fun = "brulee_tab_icl"),
       defaults = list()
     )
   )
 
   parsnip::set_encoding(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "regression",
     options = list(
       predictor_indicators = "none",
@@ -139,8 +141,8 @@ make_tabular_pfn <- function() {
   )
 
   parsnip::set_pred(
-    model = "tabular_pfn",
-    eng = "tabpfn",
+    model = "tabular_icl",
+    eng = "brulee",
     mode = "regression",
     type = "numeric",
     value = list(

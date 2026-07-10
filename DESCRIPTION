@@ -11,7 +11,7 @@ Description: 'parsnip' model functions for tabular deep learning models,
     including TabPFN, ResNet, and others.
 License: MIT + file LICENSE
 Depends:
-    parsnip,
+    parsnip (>= 1.6.0.9000),
     R (>= 4.1.0)
 Imports:
     cli,
@@ -23,14 +23,14 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.0.9001),
+    brulee (>= 1.0.1),
     modeldata,
     spelling,
     testthat (>= 3.0.0),
     torch,
     withr
 Remotes:
-    tidymodels/brulee
+    tidymodels/parsnip
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
