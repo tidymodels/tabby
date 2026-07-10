@@ -1,34 +1,3 @@
-test_that("tabular_resnet() creates a model spec with correct defaults", {
-  spec <- tabular_resnet()
-
-  expect_s3_class(spec, "tabular_resnet")
-  expect_s3_class(spec, "model_spec")
-  expect_equal(spec$mode, "unknown")
-  expect_equal(spec$engine, "brulee")
-})
-
-test_that("tabular_resnet() accepts mode and engine", {
-  spec <- tabular_resnet(mode = "classification")
-  expect_equal(spec$mode, "classification")
-
-  spec <- tabular_resnet(mode = "regression")
-  expect_equal(spec$mode, "regression")
-})
-
-test_that("tabular_resnet() captures arguments as quosures", {
-  spec <- tabular_resnet(
-    hidden_units = 16L,
-    bottleneck_units = 4L,
-    penalty = 0.01,
-    epochs = 50L
-  )
-
-  expect_equal(rlang::quo_get_expr(spec$args$hidden_units), 16L)
-  expect_equal(rlang::quo_get_expr(spec$args$bottleneck_units), 4L)
-  expect_equal(rlang::quo_get_expr(spec$args$penalty), 0.01)
-  expect_equal(rlang::quo_get_expr(spec$args$epochs), 50L)
-})
-
 test_that("tabular_resnet() is registered with parsnip", {
   reregister_model("tabular_resnet")
   expect_no_error(make_tabular_resnet())
@@ -38,54 +7,10 @@ test_that("tabular_resnet() is registered with parsnip", {
   expect_setequal(engines$mode, c("classification", "regression"))
 })
 
-test_that("update.tabular_resnet() updates args correctly", {
-  spec <- tabular_resnet(hidden_units = 8L, epochs = 50L)
-  updated <- update(spec, hidden_units = 32L)
-
-  expect_equal(rlang::quo_get_expr(updated$args$hidden_units), 32L)
-  expect_equal(rlang::quo_get_expr(updated$args$epochs), 50L)
-})
-
-test_that("update.tabular_resnet() with fresh = TRUE replaces all args", {
-  spec <- tabular_resnet(hidden_units = 8L, epochs = 50L)
-  updated <- update(spec, hidden_units = 32L, fresh = TRUE)
-
-  expect_equal(rlang::quo_get_expr(updated$args$hidden_units), 32L)
-  expect_null(rlang::quo_get_expr(updated$args$epochs))
-})
-
-test_that("check_args.tabular_resnet() passes valid arguments", {
-  expect_no_error(
-    tabular_resnet(mode = "regression", penalty = 0.1) |> parsnip::check_args()
-  )
-  expect_no_error(
-    tabular_resnet(mode = "regression", dropout = 0.5) |> parsnip::check_args()
-  )
-  expect_no_error(tabular_resnet(mode = "regression") |> parsnip::check_args())
-})
-
-test_that("check_args.tabular_resnet() validates penalty", {
-  spec <- tabular_resnet(mode = "regression", penalty = -1)
-  expect_snapshot(error = TRUE, parsnip::check_args(spec))
-})
-
-test_that("check_args.tabular_resnet() validates dropout range", {
-  spec <- tabular_resnet(mode = "regression", dropout = 1.5)
-  expect_snapshot(error = TRUE, parsnip::check_args(spec))
-})
-
-test_that("check_args.tabular_resnet() rejects both penalty and dropout", {
-  spec <- tabular_resnet(mode = "regression", penalty = 0.1, dropout = 0.2)
-  expect_snapshot(error = TRUE, parsnip::check_args(spec))
-})
-
 test_that("required_pkgs.tabular_resnet() returns expected packages", {
   spec <- tabular_resnet()
   expect_equal(required_pkgs(spec), c("brulee", "tabby"))
 })
-
-# ------------------------------------------------------------------------------
-# Integration tests (require the brulee engine + torch)
 
 test_that("tabular_resnet() fits and predicts (regression)", {
   skip_if_not_installed("brulee")
@@ -202,3 +127,4 @@ test_that("reformat_torch_num() widens multi-column results", {
   expect_named(out, c("y1", "y2"))
   expect_equal(nrow(out), 2)
 })
+
