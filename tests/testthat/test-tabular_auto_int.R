@@ -70,4 +70,3 @@ test_that("multi_predict._brulee_auto_int() works for classification", {
   expect_true(".pred_class" %in% names(inner))
   expect_equal(inner$epochs, c(3L, 7L))
 })
-

@@ -71,4 +71,3 @@ test_that("tabular_icl() fits and predicts in regression mode", {
   # non-constant.
   expect_gt(length(unique(preds$.pred)), 1L)
 })
-

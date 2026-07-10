@@ -60,4 +60,3 @@ test_that("multi_predict._brulee_rln() returns predictions at multiple epochs", 
   expect_equal(nrow(mp_default), 2)
   expect_equal(nrow(mp_default$.pred[[1]]), 1)
 })
-

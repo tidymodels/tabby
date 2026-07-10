@@ -144,4 +144,3 @@ test_that("tabular_chronos() forecast length restiction", {
   fit <- parsnip::fit(spec, ridership ~ Clark_Lake + Austin, data = Chi)
   expect_snapshot(predict(fit, Chi), error = TRUE)
 })
-

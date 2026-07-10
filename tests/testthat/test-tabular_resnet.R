@@ -127,4 +127,3 @@ test_that("reformat_torch_num() widens multi-column results", {
   expect_named(out, c("y1", "y2"))
   expect_equal(nrow(out), 2)
 })
-

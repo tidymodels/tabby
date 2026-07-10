@@ -99,4 +99,3 @@ test_that("tabular_saint() does not support multi_predict()", {
     parsnip::multi_predict(fit, mtcars[1:3, ], epochs = c(3L, 7L))
   )
 })
-

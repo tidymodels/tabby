@@ -11,4 +11,3 @@ test_that("required_pkgs.tabular_pfn() returns expected packages", {
   spec <- tabular_pfn()
   expect_equal(required_pkgs(spec), c("tabpfn", "tabby"))
 })
-
