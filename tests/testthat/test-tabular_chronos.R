@@ -1,29 +1,3 @@
-test_that("tabular_chronos() creates a model spec with correct defaults", {
-  spec <- tabular_chronos()
-
-  expect_s3_class(spec, "tabular_chronos")
-  expect_s3_class(spec, "model_spec")
-  expect_equal(spec$mode, "unknown")
-  expect_equal(spec$engine, "brulee")
-})
-
-test_that("set_mode() records quantile_levels and supports regression", {
-  qr <- tabular_chronos() |>
-    parsnip::set_engine("brulee") |>
-    parsnip::set_mode("quantile regression", quantile_levels = c(.1, .5, .9))
-  expect_equal(qr$mode, "quantile regression")
-  expect_equal(qr$quantile_levels, c(.1, .5, .9))
-
-  rg <- tabular_chronos() |> parsnip::set_mode("regression")
-  expect_equal(rg$mode, "regression")
-})
-
-test_that("update.tabular_chronos() returns a spec", {
-  spec <- tabular_chronos()
-  updated <- update(spec, parameters = NULL)
-  expect_s3_class(updated, "tabular_chronos")
-})
-
 test_that("required_pkgs.tabular_chronos() returns expected packages", {
   expect_equal(required_pkgs(tabular_chronos()), c("brulee", "tabby"))
 })

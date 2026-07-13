@@ -6,5 +6,6 @@
   make_tabular_auto_int()
   make_tabular_saint()
   make_tabular_chronos()
+  make_tabular_icl()
 }
 # nocov end
