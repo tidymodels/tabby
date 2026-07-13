@@ -16,13 +16,13 @@ Source:
 [`DESCRIPTION`](https://github.com/tidymodels/tabby/blob/main/DESCRIPTION)
 
 Kuhn M, Ruiz E (2026). *tabby: Tidy Interfaces For Tabular Deep
-Learning*. R package version 0.0.0.9000,
+Learning*. R package version 0.0.1,
 <https://github.com/tidymodels/tabby>.
 
     @Manual{,
       title = {tabby: Tidy Interfaces For Tabular Deep Learning},
       author = {Max Kuhn and Edgar Ruiz},
       year = {2026},
-      note = {R package version 0.0.0.9000},
+      note = {R package version 0.0.1},
       url = {https://github.com/tidymodels/tabby},
     }

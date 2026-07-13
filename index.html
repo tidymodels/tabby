@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Tidy Interfaces For Tabular Deep Learning • tabby</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
@@ -15,6 +20,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tidy Interfaces For Tabular Deep Learning">
 <meta name="description" content="parsnip model functions for tabular deep learning models, including TabPFN, ResNet, and others.">
 <meta property="og:description" content="parsnip model functions for tabular deep learning models, including TabPFN, ResNet, and others.">
+<meta property="og:image" content="https://tabby.tidymodels.org/logo.png">
 <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="tabby.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
@@ -25,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tabby</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +41,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -49,45 +56,157 @@
 </nav><div class="container template-home" id="container">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="tabular">tabular<a class="anchor" aria-label="anchor" href="#tabular"></a>
-</h1></div>
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="tabby-">tabby 
+<a class="anchor" aria-label="anchor" href="#tabby-"></a>
+</h1>
+</div>
 <!-- badges: start -->
 
-<p>The goal of tabular is to …</p>
+<p>tabby provides <a href="https://parsnip.tidymodels.org/" class="external-link">parsnip</a> interfaces for tabular deep learning models. Within <a href="https://www.tidymodels.org/" class="external-link">tidymodels</a>, they follow the same <code><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit()</a></code> and <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> flow as any other model. This means you can do things like tune and resample them right alongside the rest of your workflow. tabby supplies only the interface, and the fitting happens in engine packages you install separately, namely <code>brulee</code> and <code>tabpfn</code>. All supported models run on Torch.</p>
+<p>Two of the supported models ask a little more of your setup. TabPFN and Chronos-2 are pretrained, so they download their weights the first time you use them, and TabPFN also needs a Python environment, created via <code>reticulate</code>. Being pretrained, they also have few or no hyperparameters to tune, whereas the other supported models carry the usual knobs to optimize.</p>
+<div class="section level3">
+<h3 id="supported-models">Supported models<a class="anchor" aria-label="anchor" href="#supported-models"></a>
+</h3>
+<table class="table">
+<colgroup>
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+</colgroup>
+<thead><tr>
+<th>Model</th>
+<th>Function</th>
+<th>Mode</th>
+<th>Engine</th>
+<th align="center">Python</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><a href="https://tabpfn.tidymodels.org" class="external-link">TabPFN</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_pfn.html" class="external-link">tabular_pfn()</a></code></td>
+<td>
+<code>classification</code>, <code>regression</code>
+</td>
+<td><code>tabpfn</code></td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td><a href="https://brulee.tidymodels.org/reference/brulee_tab_icl.html" class="external-link">TabICL</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_icl.html" class="external-link">tabular_icl()</a></code></td>
+<td>
+<code>classification</code>, <code>regression</code>
+</td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://brulee.tidymodels.org/reference/brulee_resnet.html" class="external-link">ResNet</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_resnet.html" class="external-link">tabular_resnet()</a></code></td>
+<td>
+<code>classification</code>, <code>regression</code>
+</td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://brulee.tidymodels.org/reference/brulee_saint.html" class="external-link">SAINT</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_saint.html" class="external-link">tabular_saint()</a></code></td>
+<td>
+<code>classification</code>, <code>regression</code>
+</td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://brulee.tidymodels.org/reference/brulee_auto_int.html" class="external-link">AutoInt</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_auto_int.html" class="external-link">tabular_auto_int()</a></code></td>
+<td>
+<code>classification</code>, <code>regression</code>
+</td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://brulee.tidymodels.org/reference/brulee_rln.html" class="external-link">Regularization Learning Network</a></td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_rln.html" class="external-link">tabular_rln()</a></code></td>
+<td><code>regression</code></td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>
+<a href="https://brulee.tidymodels.org/reference/brulee_chronos.html" class="external-link">Chronos-2</a> (<em>forecasting</em>)</td>
+<td><code><a href="https://parsnip.tidymodels.org/reference/tabular_chronos.html" class="external-link">tabular_chronos()</a></code></td>
+<td>
+<code>quantile regression</code>, <code>regression</code>
+</td>
+<td><code>brulee</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of tabular like so:</p>
+<p>You can install the development version of tabby from <a href="https://github.com/tidymodels/tabby" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"tidymodels/tabby"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>Create a model specification the same way you would for any parsnip model. Here is a ResNet for classification:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vthanik.github.io/tabular/" class="external-link">tabular</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymodels/tabby" class="external-link">tabby</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: parsnip</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
+<span></span>
+<span><span class="va">resnet_spec</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/tabular_resnet.html" class="external-link">tabular_resnet</a></span><span class="op">(</span></span>
+<span>    mode <span class="op">=</span> <span class="st">"classification"</span>,</span>
+<span>    hidden_units <span class="op">=</span> <span class="fl">32L</span>,</span>
+<span>    epochs <span class="op">=</span> <span class="fl">100L</span>,</span>
+<span>    penalty <span class="op">=</span> <span class="fl">0.01</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">resnet_spec</span></span>
+<span><span class="co">#&gt; tabular resnet Model Specification (classification)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Main Arguments:</span></span>
+<span><span class="co">#&gt;   hidden_units = 32</span></span>
+<span><span class="co">#&gt;   penalty = 0.01</span></span>
+<span><span class="co">#&gt;   epochs = 100</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Computational engine: brulee</span></span></code></pre></div>
+<p>Fit and predict as usual:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      speed           dist       </span></span>
-<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
-<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
-<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
-<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
-<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code>devtools::build_readme()</code> is handy for this.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" alt="" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
+<code class="sourceCode R"><span><span class="va">resnet_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/fit.html" class="external-link">fit</a></span><span class="op">(</span><span class="va">resnet_spec</span>, <span class="va">class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">train_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">resnet_fit</span>, new_data <span class="op">=</span> <span class="va">test_data</span><span class="op">)</span></span></code></pre></div>
+<p>Mark any argument with <code><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune()</a></code> to optimize it with the <a href="https://tune.tidymodels.org/" class="external-link">tune</a> package.</p>
+</div>
+<div class="section level2">
+<h2 id="tuning-grids-for-layered-networks">Tuning grids for layered networks<a class="anchor" aria-label="anchor" href="#tuning-grids-for-layered-networks"></a>
+</h2>
+<p>Some models take <em>per-layer</em> parameters, such as a vector of hidden units with one entry per layer. tabby provides helpers to build space-filling grids over these list-valued parameters:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rn_spec</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/tabular_resnet.html" class="external-link">tabular_resnet</a></span><span class="op">(</span></span>
+<span>    hidden_units <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    bottleneck_units <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    penalty <span class="op">=</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">rn_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/neural_net_grid_space_filling.html">neural_net_grid_space_filling</a></span><span class="op">(</span><span class="va">rn_spec</span><span class="op">)</span></span>
+<span><span class="va">rn_grid</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/neural_net_grid_space_filling.html">expand_list_parameters</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>Please note that the tabular project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the tabby project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -131,15 +250,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://CRAN.R-project.org/package=tabular" class="external-link"><img src="https://www.r-pkg.org/badges/version/tabular" alt="CRAN status"></a></li>
-<li><a href="https://github.com/tidymodels/tabular/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/tidymodels/tabular/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/tidymodels/tabular" class="external-link"><img src="https://codecov.io/gh/tidymodels/tabular/graph/badge.svg" alt="Codecov test coverage"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
