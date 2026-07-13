@@ -10,6 +10,8 @@ Authors@R: c(
 Description: 'parsnip' model functions for tabular deep learning models,
     including TabPFN, ResNet, and others.
 License: MIT + file LICENSE
+URL: https://github.com/tidymodels/tabby, https://tabby.tidymodels.org/
+BugReports: https://github.com/tidymodels/tabby/issues
 Depends:
     parsnip (>= 1.6.0.9000),
     R (>= 4.1.0)
@@ -34,5 +36,6 @@ Remotes:
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
+Config/Needs/website: tidyverse/tidytemplate, brulee
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
