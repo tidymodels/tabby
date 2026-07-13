@@ -1,14 +1,14 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/CODE_OF_CONDUCT.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/LICENSE.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
-<url><loc>/reference/multi_predict.html</loc></url>
-<url><loc>/reference/neural_net_grid_space_filling.html</loc></url>
-<url><loc>/reference/reexports.html</loc></url>
-<url><loc>/reference/tabby-package.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/404.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/LICENSE-text.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/LICENSE.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/authors.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/index.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/reference/index.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/reference/multi_predict.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/reference/neural_net_grid_space_filling.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/reference/reexports.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/reference/tabby-package.html</loc></url>
 </urlset>
 
