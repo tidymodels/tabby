@@ -8,4 +8,4 @@
   : Model predictions across many sub-models
 - [`neural_net_grid_space_filling()`](https://tabby.tidymodels.org/reference/neural_net_grid_space_filling.md)
   [`expand_list_parameters()`](https://tabby.tidymodels.org/reference/neural_net_grid_space_filling.md)
-  : Working with Tuning Paramters that are lists
+  : Working with Tuning Parameters that are Lists

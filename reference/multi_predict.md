@@ -2,8 +2,6 @@
 
 Model predictions across many sub-models
 
-Model predictions across many sub-models
-
 ## Usage
 
 ``` r
@@ -56,3 +54,9 @@ multi_predict(object, new_data, type = NULL, epochs = NULL, ...)
 
   Optional arguments to pass to `predict.model_fit(type = "raw")` such
   as `type`.
+
+## Value
+
+A tibble with the same number of rows as `new_data`. Its `.pred` column
+is a list of tibbles, each containing the predictions for the
+corresponding row of `new_data` across the requested values of `epochs`.

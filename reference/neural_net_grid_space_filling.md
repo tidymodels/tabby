@@ -1,10 +1,11 @@
-# Working with Tuning Paramters that are lists
+# Working with Tuning Parameters that are Lists
 
 `neural_net_grid_space_filling()` takes the number of layers in a neural
-layer parameter(s), and collapses the grid into list parameters that the
-model function needs. `expand_list_parameters()` is a convenience
-function that converts the list columns to a wide structure for
-printing, visualization, etc.
+network as an input, creates a space-filling design with the
+multidimensional layer parameter(s), and collapses the grid into list
+parameters that the model function needs. `expand_list_parameters()` is
+a convenience function that converts the list columns to a wide
+structure for printing, visualization, etc.
 
 ## Usage
 
@@ -25,7 +26,7 @@ expand_list_parameters(x, pattern = "*")
 
 - wflow:
 
-  A `workflows::workflow()` object.
+  A model specification or `workflows::workflow()` object.
 
 - num_layers:
 
@@ -33,7 +34,7 @@ expand_list_parameters(x, pattern = "*")
 
 - size:
 
-  The *minimum* grid size. It may be adjusted upwards to find a feasable
+  The *minimum* grid size. It may be adjusted upwards to find a feasible
   design.
 
 - param_info:
@@ -50,12 +51,12 @@ expand_list_parameters(x, pattern = "*")
 
 - collapse:
 
-  A single logical for whether to collapses the parameters into list
+  A single logical for whether to collapse the parameters into list
   columns.
 
 - x:
 
-  A data frame of grid points, some of which as list columns.
+  A data frame of grid points, some of which are list columns.
 
 - pattern:
 
@@ -64,8 +65,10 @@ expand_list_parameters(x, pattern = "*")
 
 ## Value
 
-A tibble with grid points, some of which are list-columns containing
-integer vectors.
+`neural_net_grid_space_filling()` returns a tibble with grid points,
+some of which are list-columns containing integer vectors.
+`expand_list_parameters()` returns a tibble where the selected list
+columns are replaced by one integer column per layer.
 
 ## Examples
 
