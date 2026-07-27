@@ -36,8 +36,11 @@ model's mode.}
 \item{...}{Optional arguments to pass to \code{predict.model_fit(type = "raw")}
 such as \code{type}.}
 }
+\value{
+A tibble with the same number of rows as \code{new_data}. Its \code{.pred}
+column is a list of tibbles, each containing the predictions for the
+corresponding row of \code{new_data} across the requested values of \code{epochs}.
+}
 \description{
-Model predictions across many sub-models
-
 Model predictions across many sub-models
 }

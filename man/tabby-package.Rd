@@ -4,9 +4,20 @@
 \name{tabby-package}
 \alias{tabby}
 \alias{tabby-package}
-\title{tabby: Tidy Interfaces For Tabular Deep Learning}
+\title{tabby: Tidy Interfaces for Tabular Deep Learning}
 \description{
-'parsnip' model functions for tabular deep learning models, including TabPFN, ResNet, and others.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Model definitions for fitting, tuning, and predicting with deep learning models for tabular data using the 'parsnip' and 'tidymodels' frameworks. Supported models include the TabPFN foundation model of Hollmann et al. (2025) \doi{10.1038/s41586-024-08328-6}, TabICL by Qu et al. (2025) \doi{10.48550/arXiv.2502.05564}, SAINT by Somepalli et al. (2021) \doi{10.48550/arXiv.2106.01342}, and the tabular ResNet of Gorishniy et al. (2021) \doi{10.48550/arXiv.2106.11959}, among others. Helper functions are also included to create space-filling grids for tuning parameters that are defined on a per-layer basis. These functions define the model interfaces; the computations are carried out by separate engine packages built on 'torch'.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/tidymodels/tabby}
+  \item \url{https://tabby.tidymodels.org/}
+  \item Report bugs at \url{https://github.com/tidymodels/tabby/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Max Kuhn \email{max@posit.co} (\href{https://orcid.org/0000-0003-2402-136X}{ORCID})
@@ -19,7 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item Posit Software, PBC [copyright holder, funder]
+  \item Posit Software, PBC (\href{https://ror.org/03wc8by49}{ROR}) [copyright holder, funder]
 }
 
 }

@@ -3,7 +3,7 @@
 \name{neural_net_grid_space_filling}
 \alias{neural_net_grid_space_filling}
 \alias{expand_list_parameters}
-\title{Working with Tuning Paramters that are lists}
+\title{Working with Tuning Parameters that are Lists}
 \usage{
 neural_net_grid_space_filling(
   wflow,
@@ -17,13 +17,13 @@ neural_net_grid_space_filling(
 expand_list_parameters(x, pattern = "*")
 }
 \arguments{
-\item{wflow}{A \code{\link[workflows:workflow]{workflows::workflow()}} object.}
+\item{wflow}{A model specification or \code{\link[workflows:workflow]{workflows::workflow()}} object.}
 
 \item{num_layers}{A single integer for the number of layers containing hidden
 units.}
 
 \item{size}{The \emph{minimum} grid size. It may be adjusted upwards to find a
-feasable design.}
+feasible design.}
 
 \item{param_info}{A \code{\link[dials:parameters]{dials::parameters()}} object or \code{NULL}. If none is given, a
 parameters set is derived from other arguments. Passing this argument can be
@@ -31,20 +31,23 @@ useful when parameter ranges need to be customized.}
 
 \item{range}{A range for the number of hidden units in each layer.}
 
-\item{collapse}{A single logical for whether to collapses the parameters into
+\item{collapse}{A single logical for whether to collapse the parameters into
 list columns.}
 
-\item{x}{A data frame of grid points, some of which as list columns.}
+\item{x}{A data frame of grid points, some of which are list columns.}
 
 \item{pattern}{A regular expression pattern to select which list columns
 should be expanded to a wide format.}
 }
 \value{
-A tibble with grid points, some of which are list-columns containing
-integer vectors.
+\code{neural_net_grid_space_filling()} returns a tibble with grid points,
+some of which are list-columns containing integer vectors.
+\code{expand_list_parameters()} returns a tibble where the selected list columns
+are replaced by one integer column per layer.
 }
 \description{
 \code{neural_net_grid_space_filling()} takes the number of layers in a neural
+network as an input, creates a space-filling design with the multidimensional
 layer parameter(s), and collapses the grid into list parameters that the
 model function needs. \code{expand_list_parameters()} is a convenience function
 that converts the list columns to a wide structure for printing,

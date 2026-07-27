@@ -1,27 +1,29 @@
-#' Working with Tuning Paramters that are lists
+#' Working with Tuning Parameters that are Lists
 #'
 #' `neural_net_grid_space_filling()` takes the number of layers in a neural
-#" network as an input, creates a space-filling design with the multidimensional
+#' network as an input, creates a space-filling design with the multidimensional
 #' layer parameter(s), and collapses the grid into list parameters that the
 #' model function needs. `expand_list_parameters()` is a convenience function
 #' that converts the list columns to a wide structure for printing,
 #' visualization, etc.
-#' @param wflow A [workflows::workflow()] object.
+#' @param wflow A model specification or [workflows::workflow()] object.
 #' @param num_layers A single integer for the number of layers containing hidden
 #' units.
 #' @param size The _minimum_ grid size. It may be adjusted upwards to find a
-#' feasable design.
+#' feasible design.
 #' @param param_info A [dials::parameters()] object or `NULL`. If none is given, a
 #' parameters set is derived from other arguments. Passing this argument can be
 #' useful when parameter ranges need to be customized.
 #' @param range A range for the number of hidden units in each layer.
-#' @param collapse A single logical for whether to collapses the parameters into
+#' @param collapse A single logical for whether to collapse the parameters into
 #' list columns.
-#' @param x A data frame of grid points, some of which as list columns.
+#' @param x A data frame of grid points, some of which are list columns.
 #' @param pattern A regular expression pattern to select which list columns
 #' should be expanded to a wide format.
-#' @return A tibble with grid points, some of which are list-columns containing
-#' integer vectors.
+#' @return `neural_net_grid_space_filling()` returns a tibble with grid points,
+#' some of which are list-columns containing integer vectors.
+#' `expand_list_parameters()` returns a tibble where the selected list columns
+#' are replaced by one integer column per layer.
 #' @examples
 #' rn_spec <-
 #'   tabular_resnet(hidden_units = tune(),

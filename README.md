@@ -42,6 +42,13 @@ optimize.
 
 ## Installation
 
+You can install the released version of tabby from
+[CRAN](https://cran.r-project.org/package=tabby) with:
+
+``` r
+install.packages("tabby")
+```
+
 You can install the development version of tabby from
 [GitHub](https://github.com/tidymodels/tabby) with:
 

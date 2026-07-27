@@ -11,6 +11,9 @@ required_pkgs.tabular_resnet <- function(x, infra = TRUE, ...) {
 #' @rdname multi_predict
 #' @inheritParams parsnip::multi_predict
 #' @param epochs An integer vector for the number of training epochs.
+#' @return A tibble with the same number of rows as `new_data`. Its `.pred`
+#' column is a list of tibbles, each containing the predictions for the
+#' corresponding row of `new_data` across the requested values of `epochs`.
 #' @export
 multi_predict._brulee_resnet <-
   function(object, new_data, type = NULL, epochs = NULL, ...) {

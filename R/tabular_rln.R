@@ -6,7 +6,6 @@ required_pkgs.tabular_rln <- function(x, infra = TRUE, ...) {
 
 # ------------------------------------------------------------------------------
 
-#' Model predictions across many sub-models
 #' @importFrom purrr map
 #' @importFrom dplyr arrange select
 #' @rdname multi_predict
