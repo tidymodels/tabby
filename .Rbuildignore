@@ -12,3 +12,5 @@
 ^\.vscode$
 ^\.roborev$
 ^plans$
+^_pkgdown\.yml$
+^pkgdown$
