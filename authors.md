@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidymodels/tabby/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidymodels/tabby/blob/v0.0.1/DESCRIPTION)
 
 Kuhn M, Ruiz E (2026). *tabby: Tidy Interfaces for Tabular Deep
 Learning*. R package version 0.0.1,
