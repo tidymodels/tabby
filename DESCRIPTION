@@ -24,7 +24,7 @@ License: MIT + file LICENSE
 URL: https://github.com/tidymodels/tabby, https://tabby.tidymodels.org/
 BugReports: https://github.com/tidymodels/tabby/issues
 Depends:
-    parsnip (>= 1.6.0.9000),
+    parsnip (>= 1.6.1),
     R (>= 4.1.0)
 Imports:
     cli,
@@ -36,17 +36,15 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.1),
+    brulee (>= 1.2.0),
     modeldata,
     spelling,
     testthat (>= 3.0.0),
     torch,
     withr
-Remotes:
-    tidymodels/parsnip
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 Config/Needs/website: tidyverse/tidytemplate, brulee
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
