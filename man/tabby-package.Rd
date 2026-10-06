@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Model definitions for fitting, tuning, and predicting with deep learning models for tabular data using the 'parsnip' and 'tidymodels' frameworks. Supported models include the TabPFN foundation model of Hollmann et al. (2025) \doi{10.1038/s41586-024-08328-6}, TabICL by Qu et al. (2025) \doi{10.48550/arXiv.2502.05564}, SAINT by Somepalli et al. (2021) \doi{10.48550/arXiv.2106.01342}, and the tabular ResNet of Gorishniy et al. (2021) \doi{10.48550/arXiv.2106.11959}, among others. Helper functions are also included to create space-filling grids for tuning parameters that are defined on a per-layer basis. These functions define the model interfaces; the computations are carried out by separate engine packages built on 'torch'.
+Model definitions for fitting, tuning, and predicting with deep learning models for tabular data using the 'parsnip' and 'tidymodels' frameworks. Supported models include the 'TabPFN' foundation model of Hollmann et al. (2025) \doi{10.1038/s41586-024-08328-6}, 'TabICL' by Qu et al. (2025) \doi{10.48550/arXiv.2502.05564}, 'SAINT' by Somepalli et al. (2021) \doi{10.48550/arXiv.2106.01342}, and the tabular 'ResNet' of Gorishniy et al. (2021) \doi{10.48550/arXiv.2106.11959}, among others. Helper functions are also included to create space-filling grids for tuning parameters that are defined on a per-layer basis. These functions define the model interfaces; the computations are carried out by separate engine packages.
 }
 \seealso{
 Useful links:
