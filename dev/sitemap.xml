@@ -1,0 +1,14 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://tabby.tidymodels.org/dev/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/LICENSE-text.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/LICENSE.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/authors.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/index.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/news/index.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/reference/index.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/reference/multi_predict.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/reference/neural_net_grid_space_filling.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/reference/reexports.html</loc></url>
+<url><loc>https://tabby.tidymodels.org/dev/reference/tabby-package.html</loc></url>
+</urlset>
+
