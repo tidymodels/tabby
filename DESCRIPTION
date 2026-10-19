@@ -36,17 +36,17 @@ Imports:
     rlang (>= 1.1.0),
     tibble
 Suggests:
-    brulee (>= 1.0.1),
+    brulee (>= 1.2.0.9000),
     modeldata,
     spelling,
     testthat (>= 3.0.0),
     torch,
     withr
 Remotes:
-    tidymodels/parsnip
+    tidymodels/brulee
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 Config/Needs/website: tidyverse/tidytemplate, brulee
 Config/testthat/edition: 3
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
