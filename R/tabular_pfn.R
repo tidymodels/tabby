@@ -154,3 +154,154 @@ make_tabular_pfn <- function() {
     )
   )
 }
+
+
+make_tabular_brulee_pfn <- function() {
+  parsnip::set_model_engine(
+    "tabular_pfn",
+    mode = "classification",
+    eng = "brulee"
+  )
+  parsnip::set_dependency("tabular_pfn", eng = "brulee", pkg = "brulee")
+  parsnip::set_dependency("tabular_pfn", eng = "brulee", pkg = "tabby")
+
+  parsnip::set_fit(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "classification",
+    value = list(
+      interface = "formula",
+      protect = c("formula", "data"),
+      func = c(pkg = "brulee", fun = "brulee_tab_pfn"),
+      defaults = list()
+    )
+  )
+
+  parsnip::set_encoding(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "classification",
+    options = list(
+      predictor_indicators = "none",
+      compute_intercept = FALSE,
+      remove_intercept = FALSE,
+      allow_sparse_x = FALSE
+    )
+  )
+
+  parsnip::set_pred(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "classification",
+    type = "class",
+    value = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args = list(
+        type = "class",
+        object = quote(object$fit),
+        new_data = quote(new_data)
+      )
+    )
+  )
+
+  parsnip::set_pred(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "classification",
+    type = "prob",
+    value = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args = list(
+        type = "prob",
+        object = quote(object$fit),
+        new_data = quote(new_data)
+      )
+    )
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_pfn",
+    eng = "brulee",
+    parsnip = "num_estimators",
+    original = "num_estimators",
+    func = list(pkg = "dials", fun = "num_estimators"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_pfn",
+    eng = "brulee",
+    parsnip = "softmax_temperature",
+    original = "softmax_temperature",
+    func = list(pkg = "dials", fun = "softmax_temperature"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_pfn",
+    eng = "brulee",
+    parsnip = "balance_probabilities",
+    original = "balance_probabilities",
+    func = list(pkg = "dials", fun = "balance_probabilities"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_pfn",
+    eng = "brulee",
+    parsnip = "average_before_softmax",
+    original = "average_before_softmax",
+    func = list(pkg = "dials", fun = "average_before_softmax"),
+    has_submodel = FALSE
+  )
+
+  # ------------------------------------------------------------------------------
+
+  parsnip::set_model_engine("tabular_pfn", mode = "regression", eng = "brulee")
+  parsnip::set_dependency("tabular_pfn", eng = "brulee", pkg = "brulee")
+  parsnip::set_dependency("tabular_pfn", eng = "brulee", pkg = "tabby")
+
+  parsnip::set_fit(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "regression",
+    value = list(
+      interface = "formula",
+      protect = c("formula", "data"),
+      func = c(pkg = "brulee", fun = "brulee_tab_pfn"),
+      defaults = list()
+    )
+  )
+
+  parsnip::set_encoding(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "regression",
+    options = list(
+      predictor_indicators = "none",
+      compute_intercept = FALSE,
+      remove_intercept = FALSE,
+      allow_sparse_x = FALSE
+    )
+  )
+
+  parsnip::set_pred(
+    model = "tabular_pfn",
+    eng = "brulee",
+    mode = "regression",
+    type = "numeric",
+    value = list(
+      pre = NULL,
+      post = NULL,
+      func = c(fun = "predict"),
+      args = list(
+        object = quote(object$fit),
+        new_data = quote(new_data)
+      )
+    )
+  )
+}
