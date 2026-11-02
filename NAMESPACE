@@ -16,9 +16,13 @@ export(multi_predict)
 export(neural_net_grid_space_filling)
 export(required_pkgs)
 import(rlang)
-importFrom(dplyr,arrange)
-importFrom(dplyr,select)
+importFrom(dplyr,
+  arrange,
+  select
+)
 importFrom(generics,required_pkgs)
-importFrom(parsnip,check_args)
-importFrom(parsnip,multi_predict)
+importFrom(parsnip,
+  check_args,
+  multi_predict
+)
 importFrom(purrr,map)
