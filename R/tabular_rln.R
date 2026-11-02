@@ -163,15 +163,6 @@ make_tabular_rln <- function() {
   parsnip::set_model_arg(
     model = "tabular_rln",
     eng = "brulee",
-    parsnip = "validation",
-    original = "validation",
-    func = list(pkg = "dials", fun = "validation_set_prop"),
-    has_submodel = FALSE
-  )
-
-  parsnip::set_model_arg(
-    model = "tabular_rln",
-    eng = "brulee",
     parsnip = "initial",
     original = "initial",
     func = list(pkg = "dials", fun = "rate_initial"),

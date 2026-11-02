@@ -29,7 +29,6 @@ expect_engine_args <- function(spec, args) {
 }
 
 brulee_rate_args <- c(
-  validation = "validation_set_prop",
   initial = "rate_initial",
   largest = "rate_largest",
   reduction = "rate_reduction",
