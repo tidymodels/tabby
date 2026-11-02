@@ -17,3 +17,23 @@ reregister_model <- function(model) {
   }
   invisible(NULL)
 }
+
+expect_engine_args <- function(spec, args) {
+  res <- generics::tunable(spec)
+  res <- res[res$component_id == "engine", ]
+  expect_setequal(res$name, names(args))
+  funs <- purrr::map_chr(res$call_info, "fun")
+  expect_equal(funs, unname(args[res$name]))
+  pkgs <- purrr::map_chr(res$call_info, "pkg")
+  expect_all_equal(pkgs, "dials")
+}
+
+brulee_rate_args <- c(
+  validation = "validation_set_prop",
+  initial = "rate_initial",
+  largest = "rate_largest",
+  reduction = "rate_reduction",
+  steps = "rate_steps",
+  step_size = "rate_step_size",
+  decay = "rate_decay"
+)
