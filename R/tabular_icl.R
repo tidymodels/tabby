@@ -100,6 +100,24 @@ make_tabular_icl <- function() {
     has_submodel = FALSE
   )
 
+  parsnip::set_model_arg(
+    model = "tabular_icl",
+    eng = "brulee",
+    parsnip = "normalization",
+    original = "normalization",
+    func = list(pkg = "dials", fun = "normalization"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_icl",
+    eng = "brulee",
+    parsnip = "training_set_limit",
+    original = "training_set_limit",
+    func = list(pkg = "dials", fun = "training_set_limit"),
+    has_submodel = FALSE
+  )
+
   # ----------------------------------------------------------------------------
 
   parsnip::set_model_engine("tabular_icl", mode = "regression", eng = "brulee")

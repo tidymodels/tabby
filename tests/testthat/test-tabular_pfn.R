@@ -11,3 +11,10 @@ test_that("required_pkgs.tabular_pfn() returns expected packages", {
   spec <- tabular_pfn()
   expect_equal(required_pkgs(spec), c("tabpfn", "tabby"))
 })
+
+test_that("tabular_pfn() registers engine arguments for tuning", {
+  expect_engine_args(
+    tabular_pfn(),
+    c(training_set_limit = "training_set_limit")
+  )
+})

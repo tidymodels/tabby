@@ -12,6 +12,16 @@ test_that("required_pkgs.tabular_icl() returns expected packages", {
   expect_equal(required_pkgs(spec), c("brulee", "tabby"))
 })
 
+test_that("tabular_icl() registers engine arguments for tuning", {
+  expect_engine_args(
+    tabular_icl(),
+    c(
+      normalization = "normalization",
+      training_set_limit = "training_set_limit"
+    )
+  )
+})
+
 test_that("tabular_icl() fits and predicts in classification mode", {
   skip_on_cran()
   skip_if_not_installed("brulee")

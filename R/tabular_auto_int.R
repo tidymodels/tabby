@@ -268,6 +268,60 @@ make_tabular_auto_int <- function() {
     has_submodel = FALSE
   )
 
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "initial",
+    original = "initial",
+    func = list(pkg = "dials", fun = "rate_initial"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "largest",
+    original = "largest",
+    func = list(pkg = "dials", fun = "rate_largest"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "reduction",
+    original = "reduction",
+    func = list(pkg = "dials", fun = "rate_reduction"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "steps",
+    original = "steps",
+    func = list(pkg = "dials", fun = "rate_steps"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "step_size",
+    original = "step_size",
+    func = list(pkg = "dials", fun = "rate_step_size"),
+    has_submodel = FALSE
+  )
+
+  parsnip::set_model_arg(
+    model = "tabular_auto_int",
+    eng = "brulee",
+    parsnip = "decay",
+    original = "decay",
+    func = list(pkg = "dials", fun = "rate_decay"),
+    has_submodel = FALSE
+  )
+
   # ---------------------------------------------------------------------------
   # Fit
 

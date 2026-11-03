@@ -15,6 +15,10 @@ test_that("required_pkgs.tabular_saint() returns expected packages", {
   expect_true("tabby" %in% pkgs)
 })
 
+test_that("tabular_saint() registers engine arguments for tuning", {
+  expect_engine_args(tabular_saint(), brulee_rate_args)
+})
+
 test_that("tabular_saint() fits and predicts (regression)", {
   skip_if_not_installed("brulee")
   skip_if_not_installed("torch")
