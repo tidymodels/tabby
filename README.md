@@ -32,7 +32,7 @@ optimize.
 
 | Model | Function | Mode | Engine | Python |
 |----|----|----|----|:--:|
-| [TabPFN](https://tabpfn.tidymodels.org) | `tabular_pfn()` | `classification`, `regression` | `tabpfn` | ✔ |
+| [TabPFN](https://tabpfn.tidymodels.org) | `tabular_pfn()` | `classification`, `regression` | `tabpfn` | ✔ or `brulee` |
 | [TabICL](https://brulee.tidymodels.org/reference/brulee_tab_icl.html) | `tabular_icl()` | `classification`, `regression` | `brulee` |  |
 | [ResNet](https://brulee.tidymodels.org/reference/brulee_resnet.html) | `tabular_resnet()` | `classification`, `regression` | `brulee` |  |
 | [SAINT](https://brulee.tidymodels.org/reference/brulee_saint.html) | `tabular_saint()` | `classification`, `regression` | `brulee` |  |
