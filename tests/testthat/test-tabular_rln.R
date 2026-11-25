@@ -3,6 +3,10 @@ test_that("required_pkgs.tabular_rln() returns expected packages", {
   expect_equal(required_pkgs(spec), c("brulee", "tabby"))
 })
 
+test_that("tabular_rln() registers engine arguments for tuning", {
+  expect_engine_args(tabular_rln(), brulee_rate_args)
+})
+
 test_that("tabular_rln() is registered with parsnip", {
   reregister_model("tabular_rln")
   expect_no_error(make_tabular_rln())

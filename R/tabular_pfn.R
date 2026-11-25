@@ -108,6 +108,15 @@ make_tabular_pfn <- function() {
     has_submodel = FALSE
   )
 
+  parsnip::set_model_arg(
+    model = "tabular_pfn",
+    eng = "tabpfn",
+    parsnip = "training_set_limit",
+    original = "training_set_limit",
+    func = list(pkg = "dials", fun = "training_set_limit"),
+    has_submodel = FALSE
+  )
+
   # ------------------------------------------------------------------------------
 
   parsnip::set_model_engine("tabular_pfn", mode = "regression", eng = "tabpfn")

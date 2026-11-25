@@ -15,6 +15,10 @@ test_that("required_pkgs.tabular_auto_int() returns expected packages", {
   expect_true("tabby" %in% pkgs)
 })
 
+test_that("tabular_auto_int() registers engine arguments for tuning", {
+  expect_engine_args(tabular_auto_int(), brulee_rate_args)
+})
+
 test_that("multi_predict._brulee_auto_int() returns predictions at multiple epochs", {
   skip_if_not_installed("brulee")
   skip_if_not_installed("torch")

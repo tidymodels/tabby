@@ -12,6 +12,10 @@ test_that("required_pkgs.tabular_resnet() returns expected packages", {
   expect_equal(required_pkgs(spec), c("brulee", "tabby"))
 })
 
+test_that("tabular_resnet() registers engine arguments for tuning", {
+  expect_engine_args(tabular_resnet(), brulee_rate_args)
+})
+
 test_that("tabular_resnet() fits and predicts (regression)", {
   skip_if_not_installed("brulee")
   skip_if_not_installed("torch")

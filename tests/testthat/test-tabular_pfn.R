@@ -23,3 +23,10 @@ test_that("tabular_pfn() registers brulee engine arguments for tuning", {
   expect_identical(res$call_info[[1]]$pkg, "dials")
   expect_identical(res$call_info[[1]]$fun, "training_set_limit")
 })
+
+test_that("tabular_pfn() registers engine arguments for tuning", {
+  expect_engine_args(
+    tabular_pfn(),
+    c(training_set_limit = "training_set_limit")
+  )
+})
